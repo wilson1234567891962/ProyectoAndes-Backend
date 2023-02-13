@@ -29,7 +29,7 @@ public class UserEntity implements Serializable {
 	@Column( name = "pasword", length = 1000000)
 	private String  password;
 
-	@Column( name = "pasword", length = 1000000)
+	@Column( name = "roles", length = 1000000)
 	private String  roles;
 
 	public Integer getId() {
