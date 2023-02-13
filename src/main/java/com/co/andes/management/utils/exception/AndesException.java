@@ -2,12 +2,12 @@ package com.co.andes.management.utils.exception;
 
 import org.apache.log4j.Logger;
 
-public class UMBException extends Exception {
+public class AndesException extends Exception {
 
-    final static Logger logger = Logger.getLogger(UMBException.class);
+    final static Logger logger = Logger.getLogger(AndesException.class);
     private static final long serialVersionUID = 4607469051774932616L;
 
-    public UMBException(String code) {
+    public AndesException(String code) {
         super(code);
     }
 }

@@ -2,12 +2,12 @@ package com.co.andes.management.utils.exception;
 
 import org.apache.log4j.Logger;
 
-public class UMBError {
-	final static Logger logger = Logger.getLogger(UMBError.class);
+public class AndesError {
+	final static Logger logger = Logger.getLogger(AndesError.class);
 	private String code;
 	private String message;
 
-	public UMBError(String code, String message) {
+	public AndesError(String code, String message) {
 		super();
 		this.code = code;
 		this.message = message;
