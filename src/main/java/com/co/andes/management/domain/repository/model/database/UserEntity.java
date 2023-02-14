@@ -1,5 +1,6 @@
 package com.co.andes.management.domain.repository.model.database;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,14 +24,22 @@ public class UserEntity implements Serializable {
 	private Integer id;
 
 
-	@Column( name = "email", length = 1000000)
+	@Column( name = "email", length = 30)
+	@NotNull
 	private String  email;
 
-	@Column( name = "pasword", length = 1000000)
+	@Column( name = "pasword", length = 15)
+	@NotNull
 	private String  password;
 
-	@Column( name = "roles", length = 1000000)
-	private String  roles;
+	@Column( name = "isActive", columnDefinition = "int default 0")
+	@NotNull
+	private int  isActive;
+
+	@OneToOne
+	@JoinColumn(name = "id")
+	@MapsId
+	private RolesEntity rol;
 
 	public Integer getId() {
 		return id;
@@ -54,5 +63,21 @@ public class UserEntity implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public RolesEntity getRol() {
+		return rol;
+	}
+
+	public void setRol(RolesEntity rol) {
+		this.rol = rol;
+	}
+
+	public int getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(int isActive) {
+		this.isActive = isActive;
 	}
 }

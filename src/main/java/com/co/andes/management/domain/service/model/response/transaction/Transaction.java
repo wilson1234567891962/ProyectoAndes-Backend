@@ -1,24 +1,28 @@
-package com.co.andes.management.domain.service.model.response.menu;
-
+package com.co.andes.management.domain.service.model.response.transaction;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
-@Data
-@AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MenuResponseDTO {
+public class Transaction {
+    private String message;
 
-    private String name;
-    private String icon;
-    private ActionResponseDTO action;
+    public Transaction() {
+    }
 
-    public MenuResponseDTO() {
+    public Transaction(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

@@ -9,8 +9,8 @@ import java.util.Optional;
 public interface UserRepository {
 
 	final static Logger logger = Logger.getLogger(UserRepository.class);
-
 	Optional<UserEntity> getUserByPasswordAndUser(String user, String password);
-
+	Optional<UserEntity> getUserByEmail(String email);
+	boolean saveUser(String email, String password, int status);
 
 }

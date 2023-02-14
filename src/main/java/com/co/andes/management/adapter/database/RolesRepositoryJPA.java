@@ -7,11 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepositoryJPA extends JpaRepository<UserEntity, Integer> {
-	final static Logger logger = Logger.getLogger(UserRepositoryJPA.class);
+public interface RolesRepositoryJPA extends JpaRepository<RolesEntity, Integer> {
+	final static Logger logger = Logger.getLogger(RolesRepositoryJPA.class);
 
-	Optional<UserEntity> findByEmailAndPassword(String email, String password);
-
-	Optional<UserEntity> findByEmail(String email);
+	Optional<RolesEntity> findById(int id);
 
 }

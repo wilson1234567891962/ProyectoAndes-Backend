@@ -1,4 +1,4 @@
-package com.co.andes.management.domain.service.model.response;
+package com.co.andes.management.domain.service.model.response.login;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

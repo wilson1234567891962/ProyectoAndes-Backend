@@ -1,4 +1,4 @@
-package com.co.andes.management.domain.service.model.request.issue;
+package com.co.andes.management.domain.service.model.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FieldIssueRequestDTO {
-    private String description;
-    private String title;
+public class RegisterRequestDTO {
+
+    private String email;
+    private String password;
+
 }
