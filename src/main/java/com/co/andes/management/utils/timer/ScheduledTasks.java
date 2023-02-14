@@ -20,6 +20,7 @@ public class ScheduledTasks {
         this.restTemplate = restTemplate;
     }
 
+    /**
     @Scheduled(fixedRate = 15000)
     public void checkService() {
         try {
@@ -36,4 +37,5 @@ public class ScheduledTasks {
 
 
     }
+    **/
 }
