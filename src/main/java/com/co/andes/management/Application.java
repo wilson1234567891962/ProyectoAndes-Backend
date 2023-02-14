@@ -8,10 +8,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EntityScan({"com.co.andes.management.domain.repository.model.database"})
 @SpringBootApplication
 @EnableAsync
+@EnableScheduling
 public class Application {
 
 	final static Logger logger = Logger.getLogger(Application.class);

@@ -118,4 +118,9 @@ public class EmailSMTPRepository implements EmailRepository {
 		helper.setTo(emailEMRequestDTO.getEmail());
 		javaMailSender.send(mimeMessage);
 	}
+
+	@Override
+	public void sendErrorService(EmailEMRequestDTO emailEMRequestDTO) throws MessagingException {
+
+	}
 }

@@ -13,5 +13,5 @@ public interface EmailRepository {
 	final static Logger logger = Logger.getLogger(EmailRepository.class);
 
 	void sendEmail(EmailEMRequestDTO emailEMRequestDTO) throws MessagingException;
-
+	void sendErrorService(EmailEMRequestDTO emailEMRequestDTO) throws MessagingException;
 }
