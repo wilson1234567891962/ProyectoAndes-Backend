@@ -42,7 +42,7 @@ public class LoginService {
         }
         if (user.isPresent()) {
             String token = JwtUtils.createJWT(loginRequestDTO.getEmail(), loginRequestDTO.getPassword(), 300000);
-            return new DataResponseDTO(new LoginResponseDTO(token, user.get().getId().toString(), user.get().getRol().getRol()));
+            return new DataResponseDTO(new LoginResponseDTO(token, user.get().getId().toString(), user.get().getRol().getRol().getRol()));
         }
         throw new AndesException(AndesErrorEnum.LOGIN_PASSWORD_AND_USER_CONSULTING.getCode());
     }

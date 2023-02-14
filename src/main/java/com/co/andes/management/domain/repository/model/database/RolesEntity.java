@@ -1,5 +1,6 @@
 package com.co.andes.management.domain.repository.model.database;
 
+import com.co.andes.management.domain.repository.model.database.enums.RolesEnum;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +28,8 @@ public class RolesEntity implements Serializable {
 
 	@Column( name = "rol", length = 30)
 	@NotNull
-	private String  rol;
+	@Enumerated(EnumType.STRING)
+	private RolesEnum rol;
 
 	@Column( name = "description", length = 200)
 	@NotNull
@@ -45,11 +47,11 @@ public class RolesEntity implements Serializable {
 		this.id = id;
 	}
 
-	public String getRol() {
+	public RolesEnum getRol() {
 		return rol;
 	}
 
-	public void setRol(String rol) {
+	public void setRol(RolesEnum rol) {
 		this.rol = rol;
 	}
 

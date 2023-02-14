@@ -36,7 +36,7 @@ public class UserEntity implements Serializable {
 	@NotNull
 	private int  isActive;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="rol")
 	private RolesEntity rol;
 
