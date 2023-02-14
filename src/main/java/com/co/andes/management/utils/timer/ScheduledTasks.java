@@ -20,7 +20,7 @@ public class ScheduledTasks {
         this.restTemplate = restTemplate;
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 15000)
     public void checkService() {
         try {
             String message = restTemplate.getForObject(
