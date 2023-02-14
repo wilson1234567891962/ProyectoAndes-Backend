@@ -24,11 +24,11 @@ public class UserEntity implements Serializable {
 	private Integer id;
 
 
-	@Column( name = "email", length = 30)
+	@Column( name = "email", length = 100)
 	@NotNull
 	private String  email;
 
-	@Column( name = "pasword", length = 15)
+	@Column( name = "pasword", length = 100)
 	@NotNull
 	private String  password;
 
@@ -36,9 +36,8 @@ public class UserEntity implements Serializable {
 	@NotNull
 	private int  isActive;
 
-	@OneToOne
-	@JoinColumn(name = "id")
-	@MapsId
+	@ManyToOne
+	@JoinColumn(name="rol")
 	private RolesEntity rol;
 
 	public Integer getId() {

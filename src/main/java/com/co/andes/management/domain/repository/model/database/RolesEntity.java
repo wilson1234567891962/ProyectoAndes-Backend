@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -32,8 +33,8 @@ public class RolesEntity implements Serializable {
 	@NotNull
 	private String  description;
 
-	@OneToOne(mappedBy = "rol")
-	private UserEntity userList;
+	@OneToMany(mappedBy="rol")
+	private List<UserEntity> userList;
 
 
 	public Integer getId() {
