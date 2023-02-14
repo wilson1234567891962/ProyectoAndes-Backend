@@ -58,7 +58,7 @@ public class EmailSMTPRepository implements EmailRepository {
 				"                    <tr>\n" +
 				"                        <td style=\"text-align:center;\">\n" +
 				"                          <a href=\"https://rakeshmandal.com\" title=\"logo\" target=\"_blank\">\n" +
-				"                            <img width=\"140\" src=\"https://vicecalidad.umb.edu.co/viceadmin/images/vice/umb.png\" title=\"logo\" alt=\"logo\">\n" +
+				"                            <img width=\"140\" src=\"https://uniandes.edu.co/sites/default/files/logo-header_0_0.png\" title=\"logo\" alt=\"logo\">\n" +
 				"                          </a>\n" +
 				"                        </td>\n" +
 				"                    </tr>\n" +
