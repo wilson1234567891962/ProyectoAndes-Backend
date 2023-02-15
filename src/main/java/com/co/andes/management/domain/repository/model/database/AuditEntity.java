@@ -32,13 +32,13 @@ public class AuditEntity implements Serializable {
 	@NotNull
 	private String  email;
 
-	@Column( name = "description", length = 30)
+	@Column( name = "description", length = 100)
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private EventEnum description;
 
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull
 	private Date time;
 

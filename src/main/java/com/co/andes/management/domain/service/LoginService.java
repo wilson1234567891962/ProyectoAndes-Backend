@@ -44,6 +44,7 @@ public class LoginService {
             this.auditRepository.sendRegisterEvent(loginRequestDTO.getEmail(), token, EventEnum.LOGIN_USER, new Date());
             return new DataResponseDTO(new LoginResponseDTO(token, user.get().getId().toString(), user.get().getRol().getRol().getRol()));
         }
+        this.auditRepository.sendRegisterEvent(loginRequestDTO.getEmail(), "", EventEnum.TRY_TO_LOGIN_WITH_WRONG_EMAIL_AND_PASSWORD, new Date());
         throw new AndesException(AndesErrorEnum.LOGIN_PASSWORD_AND_USER_CONSULTING.getCode());
     }
 
