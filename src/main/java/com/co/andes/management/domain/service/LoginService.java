@@ -48,7 +48,12 @@ public class LoginService {
     }
 
     public DataResponseDTO executeRegister(RegisterRequestDTO registerRequestDTO) throws AndesException{
+        if(registerRequestDTO.getEmail().isEmpty() ||  registerRequestDTO.getPassword().isEmpty()){
+            throw new AndesException(AndesErrorEnum.REGISTER_PASSWORD_AND_USER_CONSULTING.getCode());
+        }
+
         Optional<UserEntity> user = userRepository.getUserByEmail(registerRequestDTO.getEmail());
+
         if (!user.isPresent()) {
             userRepository.saveUser(registerRequestDTO.getEmail(), registerRequestDTO.getPassword(), 0);
             DataResponseDTO dataResponseDTO= new DataResponseDTO();
