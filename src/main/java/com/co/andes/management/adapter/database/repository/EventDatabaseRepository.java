@@ -29,8 +29,8 @@ public class EventDatabaseRepository implements AuditRepository {
 	}
 
 	@Override
-	@Async
-	public void sendRegisterEvent(String email, String token, EventEnum description, Date date) {
-		this.auditRepositoryJPA.save(new AuditEntity(null, token, email, description, date));
+	public AuditEntity sendRegisterEvent( String token, EventEnum description, Date date) {
+		AuditEntity audit = this.auditRepositoryJPA.save(new AuditEntity(null, token, description, date));
+		return audit;
 	}
 }

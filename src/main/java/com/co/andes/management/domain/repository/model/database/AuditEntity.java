@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -27,10 +28,6 @@ public class AuditEntity implements Serializable {
 	@Column( name = "token", length = 200)
 	@NotNull
 	private String  token;
-
-	@Column( name = "email", length = 200)
-	@NotNull
-	private String  email;
 
 	@Column( name = "description", length = 100)
 	@NotNull

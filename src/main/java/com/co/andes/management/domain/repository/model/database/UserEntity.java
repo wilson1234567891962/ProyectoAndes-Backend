@@ -41,6 +41,8 @@ public class UserEntity implements Serializable {
 	@JoinColumn(name="rol")
 	private RolesEntity rol;
 
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<AuditEntity> audit;
 
 	public Integer getId() {
 		return id;
