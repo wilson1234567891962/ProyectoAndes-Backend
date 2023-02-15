@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -40,6 +41,7 @@ public class UserEntity implements Serializable {
 	@JoinColumn(name="rol")
 	private RolesEntity rol;
 
+
 	public Integer getId() {
 		return id;
 	}
@@ -64,19 +66,19 @@ public class UserEntity implements Serializable {
 		this.password = password;
 	}
 
-	public RolesEntity getRol() {
-		return rol;
-	}
-
-	public void setRol(RolesEntity rol) {
-		this.rol = rol;
-	}
-
 	public int getIsActive() {
 		return isActive;
 	}
 
 	public void setIsActive(int isActive) {
 		this.isActive = isActive;
+	}
+
+	public RolesEntity getRol() {
+		return rol;
+	}
+
+	public void setRol(RolesEntity rol) {
+		this.rol = rol;
 	}
 }
