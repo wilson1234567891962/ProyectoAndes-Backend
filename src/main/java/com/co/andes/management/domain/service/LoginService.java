@@ -1,8 +1,10 @@
 package com.co.andes.management.domain.service;
 import com.co.andes.management.adapter.email.model.request.EmailEMRequestDTO;
+import com.co.andes.management.domain.repository.AuditRepository;
 import com.co.andes.management.domain.repository.EmailRepository;
 import com.co.andes.management.domain.repository.UserRepository;
 import com.co.andes.management.domain.repository.model.database.UserEntity;
+import com.co.andes.management.domain.repository.model.database.enums.EventEnum;
 import com.co.andes.management.domain.service.model.request.LoginRequestDTO;
 import com.co.andes.management.domain.service.model.request.PasswordRequestDTO;
 import com.co.andes.management.domain.service.model.request.RegisterRequestDTO;
@@ -25,12 +27,12 @@ public class LoginService {
 
     final static Logger logger = Logger.getLogger(LoginService.class);
     private UserRepository userRepository;
-    private DozerBeanMapper dozerBeanMapper;
+    private AuditRepository auditRepository;
     private EmailRepository emailRepository;
 
     @Autowired
-    public LoginService(UserRepository userRepository, DozerBeanMapper dozerBeanMapper, EmailRepository emailRepository) {
-        this.dozerBeanMapper = dozerBeanMapper;
+    public LoginService(UserRepository userRepository, AuditRepository auditRepository, EmailRepository emailRepository) {
+        this.auditRepository = auditRepository;
         this.userRepository = userRepository;
         this.emailRepository = emailRepository;
     }
@@ -42,6 +44,7 @@ public class LoginService {
         }
         if (user.isPresent()) {
             String token = JwtUtils.createJWT(loginRequestDTO.getEmail(), loginRequestDTO.getPassword(), 300000);
+            this.auditRepository.sendRegisterEvent(loginRequestDTO.getEmail(), token, EventEnum.LOGIN_USER, new Date());
             return new DataResponseDTO(new LoginResponseDTO(token, user.get().getId().toString(), user.get().getRol().getRol().getRol()));
         }
         throw new AndesException(AndesErrorEnum.LOGIN_PASSWORD_AND_USER_CONSULTING.getCode());
@@ -55,6 +58,7 @@ public class LoginService {
         Optional<UserEntity> user = userRepository.getUserByEmail(registerRequestDTO.getEmail());
 
         if (!user.isPresent()) {
+            this.auditRepository.sendRegisterEvent(registerRequestDTO.getEmail(), "", EventEnum.REGISTER_USER, new Date());
             userRepository.saveUser(registerRequestDTO.getEmail(), registerRequestDTO.getPassword(), 0);
             DataResponseDTO dataResponseDTO= new DataResponseDTO();
             dataResponseDTO.setData(ConstantErrors.ERRORS_STATES.get(AndesErrorEnum.SUCCESS_TRANSACTION.getCode()));
@@ -67,6 +71,7 @@ public class LoginService {
         try {
             Optional<UserEntity> user = userRepository.getUserByEmail(passwordRequestDTO.getEmail());
             if (user.isPresent() ) {
+                this.auditRepository.sendRegisterEvent(passwordRequestDTO.getEmail(), "", EventEnum.EMAIL_FORGET, new Date());
                 EmailEMRequestDTO emailEMRequestDTO = new EmailEMRequestDTO(user.get().getEmail(), user.get().getPassword());
                 this.emailRepository.sendEmail(emailEMRequestDTO);
                 return;

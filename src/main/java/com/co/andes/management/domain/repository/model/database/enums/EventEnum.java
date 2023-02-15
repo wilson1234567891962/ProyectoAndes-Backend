@@ -2,7 +2,8 @@ package com.co.andes.management.domain.repository.model.database.enums;
 
 public enum EventEnum {
       REGISTER_USER("REGISTER EMAIL AND PASSWORD"),
-      ADMINISTRATOR("ADMINISTRATOR");
+      LOGIN_USER("LOGIN WITH EMAIL AND PASSWORD THE WAY SUCCESS"),
+      EMAIL_FORGET("SEND EMAIL TO RECOVERY THE PASSWORD");
 
     private String event;
 
