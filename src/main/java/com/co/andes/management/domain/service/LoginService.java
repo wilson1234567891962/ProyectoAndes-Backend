@@ -75,7 +75,9 @@ public class LoginService {
         try {
             Optional<UserEntity> user = userRepository.getUserByEmail(passwordRequestDTO.getEmail());
             if (user.isPresent() ) {
-                this.auditRepository.sendRegisterEvent( "", EventEnum.EMAIL_FORGET, new Date());
+                AuditEntity audit = this.auditRepository.sendRegisterEvent("", EventEnum.EMAIL_FORGET, new Date());
+                user.get().getAudit().add(audit);
+                userRepository.updateUser(user.get());
                 EmailEMRequestDTO emailEMRequestDTO = new EmailEMRequestDTO(user.get().getEmail(), user.get().getPassword());
                 this.emailRepository.sendEmail(emailEMRequestDTO);
                 return;
