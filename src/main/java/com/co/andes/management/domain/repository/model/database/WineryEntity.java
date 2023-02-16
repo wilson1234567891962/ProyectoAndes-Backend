@@ -1,5 +1,5 @@
 package com.co.andes.management.domain.repository.model.database;
-import com.co.andes.management.domain.repository.model.database.enums.EventEnum;
+
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,33 +8,27 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "product")
-public class ProductEntity implements Serializable {
+@Table(name = "winery")
+public class WineryEntity implements Serializable {
 
-	final static Logger logger = Logger.getLogger(ProductEntity.class);
+	final static Logger logger = Logger.getLogger(WineryEntity.class);
 	private static final long serialVersionUID = -2463354084291480284L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-
-	@Column( name = "name")
+	@Column( name = "name", length = 200)
 	@NotNull
-	private String url;
+	private String  name;
 
-	@Column( name = "image")
-	private String image;
-
-	@OneToMany(mappedBy="product")
-	private List<StoreEntity> product;
-
+	@OneToMany(mappedBy="winery")
+	private List<StoreEntity> winery;
 
 }

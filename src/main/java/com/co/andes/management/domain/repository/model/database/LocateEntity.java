@@ -1,12 +1,10 @@
 package com.co.andes.management.domain.repository.model.database;
 
-import com.co.andes.management.domain.repository.model.database.enums.CategoryEnum;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -22,20 +20,20 @@ public class LocateEntity implements Serializable {
 	private static final long serialVersionUID = -2463354084291480284L;
 
 	@Id
-	@Column(name = "id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 
-	@Column( name = "locate", length = 200)
+	@Column( name = "address")
 	@NotNull
-	private String  locate;
+	private String  address;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="country")
 	private CountryEntity country;
 
 	@OneToMany(mappedBy="locate")
-	private List<StoreEntity> storeEntity;
+	private List<StoreEntity> locates;
 
 
 

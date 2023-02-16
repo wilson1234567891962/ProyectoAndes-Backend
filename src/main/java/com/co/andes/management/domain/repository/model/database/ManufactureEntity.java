@@ -1,24 +1,21 @@
 package com.co.andes.management.domain.repository.model.database;
-import com.co.andes.management.domain.repository.model.database.enums.EventEnum;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "product")
-public class ProductEntity implements Serializable {
+@Table(name = "manufacture")
+public class ManufactureEntity implements Serializable {
 
-	final static Logger logger = Logger.getLogger(ProductEntity.class);
+	final static Logger logger = Logger.getLogger(ManufactureEntity.class);
 	private static final long serialVersionUID = -2463354084291480284L;
 
 	@Id
@@ -26,15 +23,15 @@ public class ProductEntity implements Serializable {
 	private Integer id;
 
 
-	@Column( name = "name")
+	@Column( name = "name", length = 200)
 	@NotNull
-	private String url;
+	private String  name;
 
-	@Column( name = "image")
-	private String image;
+	@OneToMany(mappedBy="manufacture")
+	private List<StoreEntity> manufacture;
 
-	@OneToMany(mappedBy="product")
-	private List<StoreEntity> product;
-
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="country")
+	private CountryEntity country;
 
 }

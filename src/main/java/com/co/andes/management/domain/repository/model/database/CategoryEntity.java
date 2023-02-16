@@ -23,7 +23,7 @@ public class CategoryEntity implements Serializable {
 	private static final long serialVersionUID = -2463354084291480284L;
 
 	@Id
-	@Column(name = "id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 
@@ -37,7 +37,7 @@ public class CategoryEntity implements Serializable {
 	private String  description;
 
 	@OneToMany(mappedBy="category")
-	private List<StoreEntity> categoryList;
+	private List<StoreEntity> categories;
 
 
 

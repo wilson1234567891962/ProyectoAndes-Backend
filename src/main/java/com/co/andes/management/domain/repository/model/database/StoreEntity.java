@@ -1,12 +1,11 @@
 package com.co.andes.management.domain.repository.model.database;
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -19,30 +18,32 @@ public class StoreEntity implements Serializable {
 	private static final long serialVersionUID = -2463354084291480284L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="product")
 	private ProductEntity product;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="manufacture")
+	private ManufactureEntity manufacture;
 
-	@Column( name = "manufacturer ")
-	@NotNull
-	private String  manufacturer;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="importer")
+	private ImporterEntity importer;
 
-	@Column( name = "importer")
-	@NotNull
-	private String  importer;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="winery")
+	private WineryEntity winery;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="category")
 	private CategoryEntity category;
 
 
-	@Column( name = "expiration")
-	@NotNull
-	private String  expiration;
+	@Column(name = "expiration")
+	private String expiration;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="locate")

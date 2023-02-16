@@ -21,7 +21,7 @@ public class CountryEntity implements Serializable {
 	private static final long serialVersionUID = -2463354084291480284L;
 
 	@Id
-	@Column(name = "id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 
@@ -32,6 +32,10 @@ public class CountryEntity implements Serializable {
 	@OneToMany(mappedBy="country")
 	private List<LocateEntity> locateEntity;
 
+	@OneToMany(mappedBy="country")
+	private List<ManufactureEntity> manufactureCountry;
 
+	@OneToMany(mappedBy="country")
+	private List<ImporterEntity> importerEntity;
 
 }
