@@ -33,4 +33,9 @@ public class EventDatabaseRepository implements AuditRepository {
 		AuditEntity audit = this.auditRepositoryJPA.save(new AuditEntity(null, token, description, date));
 		return audit;
 	}
+
+	@Override
+	public AuditEntity searchByToken(String token) {
+		return auditRepositoryJPA.findByToken(token);
+	}
 }

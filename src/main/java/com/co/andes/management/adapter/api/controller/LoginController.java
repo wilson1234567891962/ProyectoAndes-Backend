@@ -9,6 +9,7 @@ import com.co.andes.management.utils.exception.AndesErrorEnum;
 import com.co.andes.management.utils.exception.AndesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.ApiOperation;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;

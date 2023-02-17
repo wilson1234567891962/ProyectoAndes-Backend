@@ -13,5 +13,5 @@ public interface AuditRepository {
 
 
 	AuditEntity sendRegisterEvent(String token, EventEnum description, Date date);
-
+	AuditEntity searchByToken(String token);
 }
