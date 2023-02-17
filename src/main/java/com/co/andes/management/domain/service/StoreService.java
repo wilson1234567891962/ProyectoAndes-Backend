@@ -6,6 +6,7 @@ import com.co.andes.management.domain.repository.UserRepository;
 import com.co.andes.management.domain.repository.model.database.StoreEntity;
 import com.co.andes.management.domain.service.model.response.DataResponseDTO;
 import com.co.andes.management.domain.service.model.response.login.LoginResponseDTO;
+import com.co.andes.management.domain.service.model.response.store.DetailResponseDTO;
 import com.co.andes.management.domain.service.model.response.store.StoreResponseDTO;
 import com.co.andes.management.utils.exception.AndesErrorEnum;
 import com.co.andes.management.utils.exception.AndesException;
@@ -14,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,6 +36,15 @@ public class StoreService {
             throw new AndesException(AndesErrorEnum.GENERIC_ERROR.getCode());
         }
         List<StoreEntity> stores = store.getAllStores();
-        return new DataResponseDTO(new StoreResponseDTO(stores));
+        List<StoreResponseDTO> storeResponseDTO = new ArrayList<>();
+        for(int i=0; i< stores.size(); i++){
+            StoreEntity storeEntity = stores.get(i);
+            DetailResponseDTO detailResponseDTO = new DetailResponseDTO(storeEntity.getExpiration(), storeEntity.getCategory().getCategory().getCategory(), storeEntity.getLocate().getAddress());
+            StoreResponseDTO sto = new StoreResponseDTO(storeEntity.getProduct().getName(), storeEntity.getProduct().getImage(),
+                    storeEntity.getWinery().getName(),storeEntity.getManufacture().getName(), storeEntity.getImporter().getName(), storeEntity.getAmount(), detailResponseDTO);
+            storeResponseDTO.add(sto);
+        }
+
+        return new DataResponseDTO(storeResponseDTO);
     }
 }

@@ -3,9 +3,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -21,23 +22,23 @@ public class StoreEntity implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name="product")
 	private ProductEntity product;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name="manufacture")
 	private ManufactureEntity manufacture;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name="importer")
 	private ImporterEntity importer;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name="winery")
 	private WineryEntity winery;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name="category")
 	private CategoryEntity category;
 
@@ -45,7 +46,11 @@ public class StoreEntity implements Serializable {
 	@Column(name = "expiration")
 	private String expiration;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@Column(name = "amount")
+	@ColumnDefault("10")
+	private long amount;
+
+	@ManyToOne()
 	@JoinColumn(name="locate")
 	private LocateEntity locate;
 }

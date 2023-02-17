@@ -13,21 +13,70 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StoreResponseDTO {
 
-    private List<StoreEntity> store;
+    private String product;
+    private String imageProduct;
+    private String store;
+    private String supplier;
+    private String importer;
+    private long amount;
+    private DetailResponseDTO detail;
 
-    public StoreResponseDTO() {
-    }
 
-
-    public StoreResponseDTO(List<StoreEntity> store) {
+    public StoreResponseDTO(String product, String imageProduct, String store, String supplier, String importer, long amount, DetailResponseDTO detail) {
+        this.product = product;
+        this.imageProduct = imageProduct;
         this.store = store;
+        this.supplier = supplier;
+        this.importer = importer;
+        this.amount = amount;
+        this.detail = detail;
     }
 
-    public List<StoreEntity> getStore() {
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getImageProduct() {
+        return imageProduct;
+    }
+
+    public void setImageProduct(String imageProduct) {
+        this.imageProduct = imageProduct;
+    }
+
+    public String getStore() {
         return store;
     }
 
-    public void setStore(List<StoreEntity> store) {
+    public void setStore(String store) {
         this.store = store;
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
+    }
+
+    public String getImporter() {
+        return importer;
+    }
+
+    public void setImporter(String importer) {
+        this.importer = importer;
+    }
+
+    public long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(long amount) {
+        this.amount = amount;
     }
 }

@@ -28,7 +28,7 @@ public class ProductEntity implements Serializable {
 
 	@Column( name = "name")
 	@NotNull
-	private String url;
+	private String name;
 
 	@Column( name = "image")
 	private String image;
