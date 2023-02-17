@@ -30,7 +30,7 @@ public class ProductEntity implements Serializable {
 	@NotNull
 	private String name;
 
-	@Column( name = "image")
+	@Column( name = "image", columnDefinition = "varchar(255) default 'https://w7.pngwing.com/pngs/744/758/png-transparent-computer-icons-new-product-development-box-miscellaneous-text-label.png'")
 	private String image;
 
 	@OneToMany(mappedBy="product")
