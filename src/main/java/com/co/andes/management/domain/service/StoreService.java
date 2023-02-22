@@ -33,9 +33,9 @@ public class StoreService {
     }
 
     public DataResponseDTO getStoreProduct(String token) throws AndesException{
-        /** if (!token.startsWith("Bearer ") || JwtUtils.decodeJWTAnExtend(token.substring(7)).isEmpty()) {
+        if (!token.startsWith("Bearer ") || JwtUtils.decodeJWTAnExtend(token.substring(7)).isEmpty()) {
             throw new AndesException(AndesErrorEnum.GENERIC_ERROR.getCode());
-        }**/
+        }
         List<StoreEntity> stores = store.getAllStores();
         List<StoreResponseDTO> storeResponseDTO = new ArrayList<>();
         for(int i=0; i< stores.size(); i++){

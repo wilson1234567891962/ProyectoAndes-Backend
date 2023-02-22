@@ -2,7 +2,8 @@ package com.co.andes.management.domain.repository.model.database.enums;
 
 public enum StateEnum {
      PENDING("PENDING"),
-     IN_PROCESS("IN_PROCESS"),
+     PROCESSED("PROCESSED"),
+     RUNNING("RUNNING"),
      CANCELED("CANCELED");
 
     private String state;

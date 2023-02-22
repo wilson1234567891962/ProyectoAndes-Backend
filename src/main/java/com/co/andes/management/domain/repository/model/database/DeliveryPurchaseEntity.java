@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -13,10 +14,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "orderPurchase")
-public class OrderPurchaseEntity implements Serializable {
+@Table(name = "deliveryPurchase")
+public class DeliveryPurchaseEntity implements Serializable {
 
-	final static Logger logger = Logger.getLogger(OrderPurchaseEntity.class);
+	final static Logger logger = Logger.getLogger(DeliveryPurchaseEntity.class);
 	private static final long serialVersionUID = -2463354084291480284L;
 
 	@Id
@@ -27,7 +28,7 @@ public class OrderPurchaseEntity implements Serializable {
 	@NotNull
 	private int  amount;
 
-	@Column( name = "state", columnDefinition = "varchar(255) default 'PENDING'")
+	@Column( name = "state", columnDefinition = "varchar(255) default 'PROCESSED'")
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private StateEnum state;
