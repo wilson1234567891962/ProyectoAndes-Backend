@@ -40,7 +40,7 @@ public class OrderService {
         List<OrderResponseDTO> orderResponseDTO = new ArrayList<>();
         for(OrderPurchaseEntity it : stores){
            // if(it.getUserEntity().getEmail().equals(ordersRequestDT.getEmail())){
-                DetailOrderResponseDTO det = new DetailOrderResponseDTO(it.getId(), it.getStore().getProduct().getName(), it.getStore().getAmount());
+                DetailOrderResponseDTO det = new DetailOrderResponseDTO(it.getStore().getId(), it.getStore().getProduct().getName(), it.getStore().getAmount());
                 OrderResponseDTO or = new OrderResponseDTO(it.getId(), it.getClient().getNames(), it.getClient().getAddress(), it.getClient().getPhone(), it.getState().getRol(), it.getAmount(),  det);
                 orderResponseDTO.add(or);
            // }
