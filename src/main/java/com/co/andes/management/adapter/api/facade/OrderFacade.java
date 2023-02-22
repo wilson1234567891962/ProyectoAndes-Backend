@@ -1,6 +1,7 @@
 package com.co.andes.management.adapter.api.facade;
 import com.co.andes.management.domain.service.OrderService;
 import com.co.andes.management.domain.service.StoreService;
+import com.co.andes.management.domain.service.model.request.OrdersRequestDTO;
 import com.co.andes.management.utils.exception.AndesException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class OrderFacade {
     	this.orderService = orderService;
     }
     
-    public Object executeGetOrder(String token) throws AndesException {
-        return  this.orderService.executeGetOrders(token);
+    public Object executeGetOrder(String token, OrdersRequestDTO ordersRequestDT) throws AndesException {
+        return  this.orderService.executeGetOrders(token,ordersRequestDT);
     }
 }

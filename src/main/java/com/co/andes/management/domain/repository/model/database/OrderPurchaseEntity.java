@@ -1,5 +1,7 @@
 package com.co.andes.management.domain.repository.model.database;
 
+import com.co.andes.management.domain.repository.model.database.enums.RolesEnum;
+import com.co.andes.management.domain.repository.model.database.enums.StateEnum;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +29,11 @@ public class OrderPurchaseEntity implements Serializable {
 	@Column( name = "amount")
 	@NotNull
 	private int  amount;
+
+	@Column( name = "state", columnDefinition = "varchar(255) default 'PENDING'")
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private StateEnum state;
 
 	@ManyToMany
 	private List<ClientEntity> client;

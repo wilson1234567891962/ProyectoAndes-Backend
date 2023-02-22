@@ -1,8 +1,7 @@
 package com.co.andes.management.adapter.api.controller;
-
 import com.co.andes.management.adapter.api.ApiConst;
 import com.co.andes.management.adapter.api.facade.OrderFacade;
-import com.co.andes.management.adapter.api.facade.StoreFacade;
+import com.co.andes.management.domain.service.model.request.OrdersRequestDTO;
 import com.co.andes.management.utils.exception.AndesErrorEnum;
 import com.co.andes.management.utils.exception.AndesException;
 import com.co.andes.management.utils.exception.ConstantErrors;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -33,10 +31,10 @@ public class OrderController {
     }
 
 	@ApiOperation(value = "getOrder")
-	@RequestMapping(value = "/getOrder/", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> getOrder(@RequestHeader(value="Authorization") String token) {
+	@RequestMapping(value = "/getOrder/", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getOrder(@RequestHeader(value="Authorization") String token, @RequestBody OrdersRequestDTO ordersRequestDTO) {
 		try {
-			return new ResponseEntity<String>(this.gson.toJson(this.orderFacade.executeGetOrder(token)), HttpStatus.OK);
+			return new ResponseEntity<String>(this.gson.toJson(this.orderFacade.executeGetOrder(token, ordersRequestDTO)), HttpStatus.OK);
 		}
 		catch (AndesException e) {
 			e.printStackTrace();

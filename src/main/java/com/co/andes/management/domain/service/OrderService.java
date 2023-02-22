@@ -4,7 +4,9 @@ import com.co.andes.management.domain.repository.OrderRepository;
 import com.co.andes.management.domain.repository.model.database.ClientEntity;
 import com.co.andes.management.domain.repository.model.database.OrderPurchaseEntity;
 
+import com.co.andes.management.domain.repository.model.database.UserEntity;
 import com.co.andes.management.domain.repository.model.database.enums.FinanceEnum;
+import com.co.andes.management.domain.service.model.request.OrdersRequestDTO;
 import com.co.andes.management.domain.service.model.response.DataResponseDTO;
 import com.co.andes.management.domain.service.model.response.order.OrderResponseDTO;
 
@@ -14,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -29,7 +31,7 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public DataResponseDTO executeGetOrders(String token) throws AndesException{
+    public DataResponseDTO executeGetOrders(String token, OrdersRequestDTO ordersRequestDT) throws AndesException{
         /** if (!token.startsWith("Bearer ") || JwtUtils.decodeJWTAnExtend(token.substring(7)).isEmpty()) {
             throw new AndesException(AndesErrorEnum.GENERIC_ERROR.getCode());
         }**/
@@ -37,13 +39,19 @@ public class OrderService {
         List<OrderResponseDTO> orderResponseDTO = new ArrayList<>();
         for(int i=0; i< stores.size(); i++){
             OrderPurchaseEntity storeEntity = stores.get(i);
-            for(int j = 0; j < storeEntity.getClient().size(); j++){
-               ClientEntity client = storeEntity.getClient().get(j);
-               if(!client.getFinance().equals(FinanceEnum.BLOCKED.getState())){
-                   OrderResponseDTO dto = new OrderResponseDTO(storeEntity.getId(), client.getNames(), client.getAddress(), client.getPhone(), client.getFinance());
-                   orderResponseDTO.add(dto);
-               }
-            }
+            List<UserEntity> user = storeEntity.getUserEntity()
+                    .stream()
+                    .filter(c -> c.getEmail().equals(ordersRequestDT.getEmail()))
+                    .collect(Collectors.toList());
+            // if(!user.isEmpty()){
+                for(int j = 0; j < storeEntity.getClient().size(); j++){
+                    ClientEntity client = storeEntity.getClient().get(j);
+                   // if(!client.getFinance().equals(FinanceEnum.BLOCKED.getState())){
+                        OrderResponseDTO dto = new OrderResponseDTO(storeEntity.getId(), client.getNames(), client.getAddress(), client.getPhone(), storeEntity.getState().getRol());
+                        orderResponseDTO.add(dto);
+                   // }
+                }
+           // }
         }
 
         return new DataResponseDTO(orderResponseDTO);
