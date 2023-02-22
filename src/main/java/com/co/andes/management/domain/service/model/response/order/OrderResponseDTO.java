@@ -9,26 +9,31 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderResponseDTO {
 
-    private int id;
+    private int idOrder;
     private String name;
     private String address;
     private String phone;
     private String state;
+    private int amount;
+    private DetailOrderResponseDTO detail;
 
-    public OrderResponseDTO(int id, String name, String address, String phone, String state) {
-        this.id = id;
+
+    public OrderResponseDTO(int idOrder, String name, String address, String phone, String state, int amount, DetailOrderResponseDTO detail) {
+        this.idOrder = idOrder;
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.state = state;
+        this.amount = amount;
+        this.detail = detail;
     }
 
     public int getId() {
-        return id;
+        return idOrder;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idOrder = id;
     }
 
     public String getName() {

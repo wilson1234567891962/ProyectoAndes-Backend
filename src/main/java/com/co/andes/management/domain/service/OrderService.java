@@ -8,6 +8,7 @@ import com.co.andes.management.domain.repository.model.database.UserEntity;
 import com.co.andes.management.domain.repository.model.database.enums.FinanceEnum;
 import com.co.andes.management.domain.service.model.request.OrdersRequestDTO;
 import com.co.andes.management.domain.service.model.response.DataResponseDTO;
+import com.co.andes.management.domain.service.model.response.order.DetailOrderResponseDTO;
 import com.co.andes.management.domain.service.model.response.order.OrderResponseDTO;
 
 import com.co.andes.management.utils.exception.AndesException;
@@ -37,21 +38,13 @@ public class OrderService {
         }**/
         List<OrderPurchaseEntity> stores = orderRepository.getAllOrders();
         List<OrderResponseDTO> orderResponseDTO = new ArrayList<>();
-        for(int i=0; i< stores.size(); i++){
-            OrderPurchaseEntity storeEntity = stores.get(i);
-            List<UserEntity> user = storeEntity.getUserEntity()
-                    .stream()
-                    .filter(c -> c.getEmail().equals(ordersRequestDT.getEmail()))
-                    .collect(Collectors.toList());
-            // if(!user.isEmpty()){
-                for(int j = 0; j < storeEntity.getClient().size(); j++){
-                    ClientEntity client = storeEntity.getClient().get(j);
-                   // if(!client.getFinance().equals(FinanceEnum.BLOCKED.getState())){
-                        OrderResponseDTO dto = new OrderResponseDTO(storeEntity.getId(), client.getNames(), client.getAddress(), client.getPhone(), storeEntity.getState().getRol());
-                        orderResponseDTO.add(dto);
-                   // }
-                }
+        for(OrderPurchaseEntity it : stores){
+           // if(it.getUserEntity().getEmail().equals(ordersRequestDT.getEmail())){
+                DetailOrderResponseDTO det = new DetailOrderResponseDTO(it.getId(), it.getStore().getProduct().getName(), it.getStore().getAmount());
+                OrderResponseDTO or = new OrderResponseDTO(it.getId(), it.getClient().getNames(), it.getClient().getAddress(), it.getClient().getPhone(), it.getState().getRol(), it.getAmount(),  det);
+                orderResponseDTO.add(or);
            // }
+
         }
 
         return new DataResponseDTO(orderResponseDTO);

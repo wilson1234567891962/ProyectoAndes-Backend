@@ -35,13 +35,13 @@ public class OrderPurchaseEntity implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private StateEnum state;
 
-	@ManyToMany
-	private List<ClientEntity> client;
+	@OneToOne
+	private ClientEntity client;
 
-	@ManyToMany
-	private List<UserEntity> UserEntity;
+	@OneToOne
+	private UserEntity UserEntity;
 
-	@ManyToMany
-	private List<StoreEntity> store;
+	@OneToOne
+	private StoreEntity store;
 
 }
