@@ -12,6 +12,7 @@ public class ApiConst {
 
 	public static final String LOGIN_PATH = "/ANDES";
 	public static final String STORE_PATH = "/ANDES/STORE";
+	public static final String ORDER_PATH = "/ANDES/ORDER";
 	public static final String SWAGGER_PATH = "com.co.andes.login.management";
 	public static final String URL_SERVICE = "https://andes-deploy.herokuapp.com/ANDES/message";
 

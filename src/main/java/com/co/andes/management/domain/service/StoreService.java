@@ -41,7 +41,7 @@ public class StoreService {
             StoreEntity storeEntity = stores.get(i);
             DetailResponseDTO detailResponseDTO = new DetailResponseDTO(storeEntity.getCategory().getCategory().getCategory(), storeEntity.getExpiration(), storeEntity.getLocate().getAddress());
             StoreResponseDTO sto = new StoreResponseDTO(storeEntity.getProduct().getName(), storeEntity.getProduct().getImage(),
-                    storeEntity.getWinery().getName(),storeEntity.getManufacture().getName(), storeEntity.getImporter().getName(), storeEntity.getAmount(), detailResponseDTO);
+                    storeEntity.getWarehouse().getName(),storeEntity.getManufacture().getName(), storeEntity.getImporter().getName(), storeEntity.getAmount(), detailResponseDTO);
             storeResponseDTO.add(sto);
         }
 

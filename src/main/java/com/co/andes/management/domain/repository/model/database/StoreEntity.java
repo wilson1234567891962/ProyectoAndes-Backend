@@ -35,8 +35,8 @@ public class StoreEntity implements Serializable {
 	private ImporterEntity importer;
 
 	@ManyToOne()
-	@JoinColumn(name="winery")
-	private WineryEntity winery;
+	@JoinColumn(name="warehouse")
+	private WareHouseEntity warehouse;
 
 	@ManyToOne()
 	@JoinColumn(name="category")

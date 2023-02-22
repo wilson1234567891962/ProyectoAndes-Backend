@@ -21,7 +21,7 @@ public class UserEntity implements Serializable {
 	private static final long serialVersionUID = -2463354084291480284L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 
@@ -29,7 +29,7 @@ public class UserEntity implements Serializable {
 	@NotNull
 	private String  email;
 
-	@Column( name = "pasword", length = 100)
+	@Column( name = "password", length = 100)
 	@NotNull
 	private String  password;
 
@@ -43,6 +43,7 @@ public class UserEntity implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<AuditEntity> audit;
+
 
 	public Integer getId() {
 		return id;

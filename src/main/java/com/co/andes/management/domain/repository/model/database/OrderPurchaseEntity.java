@@ -14,21 +14,27 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "winery")
-public class WineryEntity implements Serializable {
+@Table(name = "orderPurchase")
+public class OrderPurchaseEntity implements Serializable {
 
-	final static Logger logger = Logger.getLogger(WineryEntity.class);
+	final static Logger logger = Logger.getLogger(OrderPurchaseEntity.class);
 	private static final long serialVersionUID = -2463354084291480284L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column( name = "name", length = 200)
+	@Column( name = "amount")
 	@NotNull
-	private String  name;
+	private int  amount;
 
-	@OneToMany(mappedBy="winery")
-	private List<StoreEntity> winery;
+	@ManyToMany
+	private List<ClientEntity> client;
+
+	@ManyToMany
+	private List<UserEntity> UserEntity;
+
+	@ManyToMany
+	private List<StoreEntity> store;
 
 }
