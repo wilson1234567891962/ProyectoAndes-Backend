@@ -25,11 +25,11 @@ public class AuditEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 
-	@Column( name = "token", length = 200)
+	@Column( name = "token")
 	@NotNull
 	private String  token;
 
-	@Column( name = "description", length = 100)
+	@Column( name = "description")
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private EventEnum description;

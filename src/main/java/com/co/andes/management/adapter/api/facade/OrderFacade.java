@@ -20,7 +20,7 @@ public class OrderFacade {
     	this.orderService = orderService;
     }
     
-    public Object executeGetOrder(String token, OrdersRequestDTO ordersRequestDT) throws AndesException {
-        return  this.orderService.executeGetOrders(token,ordersRequestDT);
+    public Object executeGetOrder(String token) throws AndesException {
+        return  this.orderService.executeGetOrders(token);
     }
 }

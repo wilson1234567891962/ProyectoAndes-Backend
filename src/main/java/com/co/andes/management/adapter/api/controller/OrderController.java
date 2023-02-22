@@ -31,10 +31,10 @@ public class OrderController {
     }
 
 	@ApiOperation(value = "getOrder")
-	@RequestMapping(value = "/getOrder/", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> getOrder(@RequestHeader(value="Authorization") String token, @RequestBody OrdersRequestDTO ordersRequestDTO) {
+	@RequestMapping(value = "/getOrder/", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getOrder(@RequestHeader(value="Authorization") String token) {
 		try {
-			return new ResponseEntity<String>(this.gson.toJson(this.orderFacade.executeGetOrder(token, ordersRequestDTO)), HttpStatus.OK);
+			return new ResponseEntity<String>(this.gson.toJson(this.orderFacade.executeGetOrder(token)), HttpStatus.OK);
 		}
 		catch (AndesException e) {
 			e.printStackTrace();

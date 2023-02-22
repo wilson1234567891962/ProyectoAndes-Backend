@@ -41,7 +41,7 @@ public class LoginService {
             throw new AndesException(AndesErrorEnum.LOGIN_PASSWORD_AND_USER_IS_NOT_ACTIVE.getCode());
         }
         if (user.isPresent()) {
-            String token = JwtUtils.createJWT(loginRequestDTO.getEmail(), loginRequestDTO.getPassword(), 300000);
+            String token = JwtUtils.createJWT(loginRequestDTO.getEmail(), loginRequestDTO.getPassword(), loginRequestDTO.getEmail(),300000);
             AuditEntity audit = this.auditRepository.sendRegisterEvent( token, EventEnum.LOGIN_USER, new Date());
             user.get().getAudit().add(audit);
             userRepository.updateUser(user.get());

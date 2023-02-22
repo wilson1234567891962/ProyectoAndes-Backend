@@ -14,6 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
 import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
 
 public class JwtUtils implements Serializable {
 	final static Logger logger = Logger.getLogger(JwtUtils.class);
@@ -59,7 +60,7 @@ public class JwtUtils implements Serializable {
         return builder.compact();
     }
 
-    public static String createJWT(String origin, String subject , long ttlMillis) {
+    public static String createJWT(String origin, String subject,  long ttlMillis) {
 
         //The JWT signature algorithm we will be using to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -70,6 +71,8 @@ public class JwtUtils implements Serializable {
         //We will sign our JWT with our ApiKey secret
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
+
 
         //Let's set the JWT Claims
         JwtBuilder builder = Jwts.builder().setId(origin)

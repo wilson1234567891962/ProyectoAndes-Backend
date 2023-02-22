@@ -12,6 +12,8 @@ import com.co.andes.management.domain.service.model.response.order.DetailOrderRe
 import com.co.andes.management.domain.service.model.response.order.OrderResponseDTO;
 
 import com.co.andes.management.utils.exception.AndesException;
+import com.co.andes.management.utils.token.JwtUtils;
+import io.jsonwebtoken.Claims;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,10 +34,12 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public DataResponseDTO executeGetOrders(String token, OrdersRequestDTO ordersRequestDT) throws AndesException{
+    public DataResponseDTO executeGetOrders(String token) throws AndesException{
         /** if (!token.startsWith("Bearer ") || JwtUtils.decodeJWTAnExtend(token.substring(7)).isEmpty()) {
             throw new AndesException(AndesErrorEnum.GENERIC_ERROR.getCode());
         }**/
+        // Claims claims = JwtUtils.decodeJWT(JwtUtils.decodeJWTAnExtend(token.substring(7)));
+        // System.out.println(claims.getId());
         List<OrderPurchaseEntity> stores = orderRepository.getAllOrders();
         List<OrderResponseDTO> orderResponseDTO = new ArrayList<>();
         for(OrderPurchaseEntity it : stores){
