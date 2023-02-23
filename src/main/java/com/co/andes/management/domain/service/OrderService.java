@@ -18,6 +18,7 @@ import com.co.andes.management.utils.Utils;
 import com.co.andes.management.utils.exception.AndesErrorEnum;
 import com.co.andes.management.utils.exception.AndesException;
 import com.co.andes.management.utils.exception.ConstantErrors;
+import com.co.andes.management.utils.token.JwtUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,11 +48,11 @@ public class OrderService {
         List<OrderPurchaseEntity> stores = orderRepository.getAllOrders();
         List<OrderResponseDTO> orderResponseDTO = new ArrayList<>();
         for(OrderPurchaseEntity it : stores){
-            // if(it.getUserEntity().getEmail().equals(claims.getSubject())){
+            if(it.getUserEntity().getEmail().equals(JwtUtils.decodeJWT(token).getSubject())){
                 DetailOrderResponseDTO det = new DetailOrderResponseDTO(it.getStore().getId(), it.getStore().getProduct().getName(), it.getStore().getAmount());
                 OrderResponseDTO or = new OrderResponseDTO(it.getId(), it.getClient().getNames(), it.getClient().getAddress(), it.getClient().getPhone(), it.getState().getState(), it.getAmount(),  det);
                 orderResponseDTO.add(or);
-          // }
+            }
 
         }
 
