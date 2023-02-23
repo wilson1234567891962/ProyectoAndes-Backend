@@ -49,7 +49,7 @@ public class OrderService {
         List<OrderPurchaseEntity> stores = orderRepository.getAllOrders();
         List<OrderResponseDTO> orderResponseDTO = new ArrayList<>();
         for(OrderPurchaseEntity it : stores){
-            if(it.getUserEntity().getEmail().equals(JwtUtils.decodeJWT(token).getSubject()) && !it.getClient().getFinance().equals(FinanceEnum.BLOCKED.getState())){
+            if(!it.getClient().getFinance().equals(FinanceEnum.BLOCKED.getState())){
                 DetailOrderResponseDTO det = new DetailOrderResponseDTO(it.getStore().getId(), it.getStore().getProduct().getName(), it.getStore().getAmount());
                 OrderResponseDTO or = new OrderResponseDTO(it.getId(), it.getClient().getNames(), it.getClient().getAddress(), it.getClient().getPhone(), it.getState().getState(), it.getAmount(),  det);
                 orderResponseDTO.add(or);
