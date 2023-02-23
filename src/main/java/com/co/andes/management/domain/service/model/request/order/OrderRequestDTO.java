@@ -1,12 +1,7 @@
 package com.co.andes.management.domain.service.model.request.order;
-import com.co.andes.management.domain.service.model.response.order.DetailOrderResponseDTO;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderRequestDTO {
 
@@ -16,10 +11,13 @@ public class OrderRequestDTO {
     private String phone;
     private String state;
     private int amount;
-    private DetailOrderResponseDTO detail;
+    private DetailOrderRRequestDTO detail;
+    private int driver;
 
+    public OrderRequestDTO() {
+    }
 
-    public OrderRequestDTO(int idOrder, String name, String address, String phone, String state, int amount, DetailOrderResponseDTO detail) {
+    public OrderRequestDTO(int idOrder, String name, String address, String phone, String state, int amount, DetailOrderRRequestDTO detail, int driver) {
         this.idOrder = idOrder;
         this.name = name;
         this.address = address;
@@ -27,14 +25,15 @@ public class OrderRequestDTO {
         this.state = state;
         this.amount = amount;
         this.detail = detail;
+        this.driver = driver;
     }
 
-    public int getId() {
+    public int getIdOrder() {
         return idOrder;
     }
 
-    public void setId(int id) {
-        this.idOrder = id;
+    public void setIdOrder(int idOrder) {
+        this.idOrder = idOrder;
     }
 
     public String getName() {
@@ -67,5 +66,29 @@ public class OrderRequestDTO {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public DetailOrderRRequestDTO getDetail() {
+        return detail;
+    }
+
+    public void setDetail(DetailOrderRRequestDTO detail) {
+        this.detail = detail;
+    }
+
+    public int getDriver() {
+        return driver;
+    }
+
+    public void setDriver(int driver) {
+        this.driver = driver;
     }
 }

@@ -8,6 +8,7 @@ import com.co.andes.management.domain.service.model.response.DataResponseDTO;
 import com.co.andes.management.domain.service.model.response.login.LoginResponseDTO;
 import com.co.andes.management.domain.service.model.response.store.DetailResponseDTO;
 import com.co.andes.management.domain.service.model.response.store.StoreResponseDTO;
+import com.co.andes.management.utils.Utils;
 import com.co.andes.management.utils.exception.AndesErrorEnum;
 import com.co.andes.management.utils.exception.AndesException;
 import com.co.andes.management.utils.token.JwtUtils;
@@ -33,9 +34,8 @@ public class StoreService {
     }
 
     public DataResponseDTO getStoreProduct(String token) throws AndesException{
-        if (!token.startsWith("Bearer ") || JwtUtils.decodeJWTAnExtend(token.substring(7)).isEmpty()) {
-            throw new AndesException(AndesErrorEnum.GENERIC_ERROR.getCode());
-        }
+        Utils.checkToken(token);
+
         List<StoreEntity> stores = store.getAllStores();
         List<StoreResponseDTO> storeResponseDTO = new ArrayList<>();
         for(int i=0; i< stores.size(); i++){

@@ -24,4 +24,14 @@ public class OrderDatabaseRepository implements OrderRepository {
 	public List<OrderPurchaseEntity> getAllOrders() {
 		return this.orderRepositoryJPA.findAll();
 	}
+
+	@Override
+	public OrderPurchaseEntity getOrderById(int id) {
+		return this.orderRepositoryJPA.findById(id).get();
+	}
+
+	@Override
+	public void deleteById(int id) {
+		 this.orderRepositoryJPA.deleteById(id);
+	}
 }

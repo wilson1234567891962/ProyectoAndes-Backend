@@ -23,12 +23,13 @@ public class DetailOrderRRequestDTO {
         this.availableAmount = availableAmount;
     }
 
-    public int getId() {
+
+    public int getIdStore() {
         return idStore;
     }
 
-    public void setId(int id) {
-        this.idStore = id;
+    public void setIdStore(int idStore) {
+        this.idStore = idStore;
     }
 
     public String getProduct() {
@@ -39,11 +40,11 @@ public class DetailOrderRRequestDTO {
         this.product = product;
     }
 
-    public long getAmount() {
+    public long getAvailableAmount() {
         return availableAmount;
     }
 
-    public void setAmount(long availableAmount) {
+    public void setAvailableAmount(long availableAmount) {
         this.availableAmount = availableAmount;
     }
 }

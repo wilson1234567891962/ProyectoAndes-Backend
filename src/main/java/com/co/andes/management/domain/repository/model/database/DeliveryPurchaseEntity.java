@@ -42,4 +42,7 @@ public class DeliveryPurchaseEntity implements Serializable {
 	@OneToOne
 	private StoreEntity store;
 
+	@OneToOne
+	private DriverEntity driver;
+
 }

@@ -3,7 +3,7 @@ package com.co.andes.management.domain.repository.model.database.enums;
 public enum StateEnum {
      PENDING("PENDING"),
      PROCESSED("PROCESSED"),
-     RUNNING("RUNNING"),
+     EXECUTING("EXECUTING"),
      CANCELED("CANCELED");
 
     private String state;
@@ -12,7 +12,7 @@ public enum StateEnum {
         this.state = state;
     }
 
-    public String  getRol() {
+    public String  getState() {
         return state;
     }
 }

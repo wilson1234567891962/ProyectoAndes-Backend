@@ -13,17 +13,15 @@ import org.springframework.stereotype.Repository;
 public class DeliveryDatabaseRepository implements DeliveryRepository {
 	final static Logger logger = Logger.getLogger(DeliveryDatabaseRepository.class);
 
-	private final OrderRepositoryJPA orderRepositoryJPA;
 	private final DeliveryPurchaseRepositoryJPA deliveryPurchase;
 
 	@Autowired
-	public DeliveryDatabaseRepository(OrderRepositoryJPA orderRepositoryJPA, DeliveryPurchaseRepositoryJPA deliveryPurchase) {
-		this.orderRepositoryJPA = orderRepositoryJPA;
+	public DeliveryDatabaseRepository(DeliveryPurchaseRepositoryJPA deliveryPurchase) {
 		this.deliveryPurchase = deliveryPurchase;
 	}
 
 	@Override
-	public DeliveryPurchaseEntity insertOrder(OrderPurchaseEntity orderPurchaseEntity) {
-		return null;
+	public DeliveryPurchaseEntity insertOrder(DeliveryPurchaseEntity deliveryPurchaseEntity) {
+		return this.deliveryPurchase.save(deliveryPurchaseEntity);
 	}
 }

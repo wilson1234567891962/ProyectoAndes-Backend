@@ -10,6 +10,6 @@ import java.util.List;
 public interface DeliveryRepository {
 
 	final static Logger logger = Logger.getLogger(DeliveryRepository.class);
-	DeliveryPurchaseEntity insertOrder(OrderPurchaseEntity orderPurchaseEntity);
+	DeliveryPurchaseEntity insertOrder(DeliveryPurchaseEntity deliveryPurchaseEntity);
 
 }

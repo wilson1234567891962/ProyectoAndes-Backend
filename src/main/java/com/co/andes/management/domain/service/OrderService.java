@@ -1,16 +1,21 @@
 package com.co.andes.management.domain.service;
 
 import com.co.andes.management.domain.repository.DeliveryRepository;
+import com.co.andes.management.domain.repository.DriverRepository;
 import com.co.andes.management.domain.repository.OrderRepository;
+import com.co.andes.management.domain.repository.model.database.DeliveryPurchaseEntity;
+import com.co.andes.management.domain.repository.model.database.DriverEntity;
 import com.co.andes.management.domain.repository.model.database.OrderPurchaseEntity;
+import com.co.andes.management.domain.repository.model.database.enums.StateEnum;
 import com.co.andes.management.domain.service.model.request.order.OrderRequestDTO;
 import com.co.andes.management.domain.service.model.response.DataResponseDTO;
+import com.co.andes.management.domain.service.model.response.driver.DriverResponseDTO;
 import com.co.andes.management.domain.service.model.response.order.DetailOrderResponseDTO;
 import com.co.andes.management.domain.service.model.response.order.OrderResponseDTO;
+import com.co.andes.management.utils.Utils;
 import com.co.andes.management.utils.exception.AndesErrorEnum;
 import com.co.andes.management.utils.exception.AndesException;
-import com.co.andes.management.utils.token.JwtUtils;
-import io.jsonwebtoken.Claims;
+import com.co.andes.management.utils.exception.ConstantErrors;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,52 +28,57 @@ public class OrderService {
     final static Logger logger = Logger.getLogger(OrderService.class);
     private OrderRepository orderRepository;
     private DeliveryRepository deliveryRepository;
+    private DriverRepository driverRepository;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, DeliveryRepository deliveryRepository) {
+    public OrderService(OrderRepository orderRepository, DeliveryRepository deliveryRepository, DriverRepository driverRepository) {
         this.orderRepository = orderRepository;
         this.deliveryRepository = deliveryRepository;
+        this.driverRepository = driverRepository;
     }
 
     public DataResponseDTO executeGetOrders(String token) throws AndesException{
-
-        if (!token.startsWith("Bearer ") || JwtUtils.decodeJWTAnExtend(token.substring(7)).isEmpty()) {
-            throw new AndesException(AndesErrorEnum.GENERIC_ERROR.getCode());
-        }
-
-        Claims claims = JwtUtils.decodeJWT(JwtUtils.decodeJWTAnExtend(token.substring(7)));
+        Utils.checkToken(token);
 
         List<OrderPurchaseEntity> stores = orderRepository.getAllOrders();
         List<OrderResponseDTO> orderResponseDTO = new ArrayList<>();
         for(OrderPurchaseEntity it : stores){
-            if(it.getUserEntity().getEmail().equals(claims.getSubject())){
+            // if(it.getUserEntity().getEmail().equals(claims.getSubject())){
                 DetailOrderResponseDTO det = new DetailOrderResponseDTO(it.getStore().getId(), it.getStore().getProduct().getName(), it.getStore().getAmount());
-                OrderResponseDTO or = new OrderResponseDTO(it.getId(), it.getClient().getNames(), it.getClient().getAddress(), it.getClient().getPhone(), it.getState().getRol(), it.getAmount(),  det);
+                OrderResponseDTO or = new OrderResponseDTO(it.getId(), it.getClient().getNames(), it.getClient().getAddress(), it.getClient().getPhone(), it.getState().getState(), it.getAmount(),  det);
                 orderResponseDTO.add(or);
-           }
+          // }
 
         }
 
         return new DataResponseDTO(orderResponseDTO);
     }
 
+    public DataResponseDTO executeGetDrivers(String token) throws AndesException{
+        Utils.checkToken(token);
+        List<DriverEntity> driver = driverRepository.getAllDriver();
+        List<DriverResponseDTO> driverResponseDTO = new ArrayList<>();
+        for(DriverEntity it : driver){
+            DriverResponseDTO det = new DriverResponseDTO(it.getId(), it.getDocument(),it.getDriverName());
+            driverResponseDTO.add(det);
+        }
+
+        return new DataResponseDTO(driverResponseDTO);
+    }
+
     public DataResponseDTO executeUpdateOrder(String token, List<OrderRequestDTO> orderRequestDTO) throws AndesException{
-        if (!token.startsWith("Bearer ") || JwtUtils.decodeJWTAnExtend(token.substring(7)).isEmpty()) {
-          throw new AndesException(AndesErrorEnum.GENERIC_ERROR.getCode());
+        Utils.checkToken(token);
+        for(OrderRequestDTO it : orderRequestDTO){
+            if(it.getState().equals(StateEnum.PROCESSED.getState()) ){
+                OrderPurchaseEntity order = this.orderRepository.getOrderById(it.getIdOrder());
+                DriverEntity driver = this.driverRepository.getDriverById(it.getDriver());
+                this.orderRepository.deleteById(it.getIdOrder());
+                DeliveryPurchaseEntity delivery = new DeliveryPurchaseEntity(null, it.getAmount(), StateEnum.PROCESSED, order.getClient(), order.getUserEntity(), order.getStore(), driver);
+                this.deliveryRepository.insertOrder(delivery);
+            }
         }
-
-        Claims claims = JwtUtils.decodeJWT(JwtUtils.decodeJWTAnExtend(token.substring(7)));
-        List<OrderPurchaseEntity> stores = orderRepository.getAllOrders();
-
-        List<OrderResponseDTO> orderResponseDTO = new ArrayList<>();
-        for(OrderPurchaseEntity it : stores){
-            if(it.getUserEntity().getEmail().equals(claims.getSubject())){
-            DetailOrderResponseDTO det = new DetailOrderResponseDTO(it.getStore().getId(), it.getStore().getProduct().getName(), it.getStore().getAmount());
-            OrderResponseDTO or = new OrderResponseDTO(it.getId(), it.getClient().getNames(), it.getClient().getAddress(), it.getClient().getPhone(), it.getState().getRol(), it.getAmount(),  det);
-            orderResponseDTO.add(or);
-             }
-        }
-
-        return new DataResponseDTO(orderResponseDTO);
+        DataResponseDTO dataResponseDTO= new DataResponseDTO();
+        dataResponseDTO.setData(ConstantErrors.ERRORS_STATES.get(AndesErrorEnum.SUCCESS_TRANSACTION.getCode()));
+        return dataResponseDTO;
     }
 }

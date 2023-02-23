@@ -10,5 +10,6 @@ public interface OrderRepository {
 
 	final static Logger logger = Logger.getLogger(OrderRepository.class);
 	List<OrderPurchaseEntity> getAllOrders();
-
+	OrderPurchaseEntity getOrderById(int id);
+	void deleteById(int id);
 }
