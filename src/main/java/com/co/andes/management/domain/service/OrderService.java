@@ -8,6 +8,7 @@ import com.co.andes.management.domain.repository.model.database.DeliveryPurchase
 import com.co.andes.management.domain.repository.model.database.DriverEntity;
 import com.co.andes.management.domain.repository.model.database.OrderPurchaseEntity;
 import com.co.andes.management.domain.repository.model.database.StoreEntity;
+import com.co.andes.management.domain.repository.model.database.enums.FinanceEnum;
 import com.co.andes.management.domain.repository.model.database.enums.StateEnum;
 import com.co.andes.management.domain.service.model.request.order.OrderRequestDTO;
 import com.co.andes.management.domain.service.model.response.DataResponseDTO;
@@ -48,7 +49,7 @@ public class OrderService {
         List<OrderPurchaseEntity> stores = orderRepository.getAllOrders();
         List<OrderResponseDTO> orderResponseDTO = new ArrayList<>();
         for(OrderPurchaseEntity it : stores){
-            if(it.getUserEntity().getEmail().equals(JwtUtils.decodeJWT(token).getSubject())){
+            if(it.getUserEntity().getEmail().equals(JwtUtils.decodeJWT(token).getSubject()) && !it.getClient().getFinance().equals(FinanceEnum.BLOCKED.getState())){
                 DetailOrderResponseDTO det = new DetailOrderResponseDTO(it.getStore().getId(), it.getStore().getProduct().getName(), it.getStore().getAmount());
                 OrderResponseDTO or = new OrderResponseDTO(it.getId(), it.getClient().getNames(), it.getClient().getAddress(), it.getClient().getPhone(), it.getState().getState(), it.getAmount(),  det);
                 orderResponseDTO.add(or);
