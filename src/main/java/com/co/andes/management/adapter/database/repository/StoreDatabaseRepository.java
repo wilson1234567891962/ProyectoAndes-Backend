@@ -32,4 +32,14 @@ public class StoreDatabaseRepository implements StoreRepository {
 	public List<StoreEntity> getAllStores() {
 		return this.storeRepositoryJPA.findAll();
 	}
+
+	@Override
+	public StoreEntity findById(int id) {
+		return this.storeRepositoryJPA.findById(id).get();
+	}
+
+	@Override
+	public StoreEntity updateStore(StoreEntity storeEntity) {
+		return this.storeRepositoryJPA.save(storeEntity);
+	}
 }

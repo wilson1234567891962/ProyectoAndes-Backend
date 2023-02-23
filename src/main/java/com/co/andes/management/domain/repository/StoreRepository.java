@@ -9,5 +9,6 @@ public interface StoreRepository {
 
 	final static Logger logger = Logger.getLogger(StoreRepository.class);
 	List<StoreEntity> getAllStores();
-
+	StoreEntity findById(int id);
+	StoreEntity updateStore(StoreEntity store);
 }

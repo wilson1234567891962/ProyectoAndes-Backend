@@ -3,9 +3,11 @@ package com.co.andes.management.domain.service;
 import com.co.andes.management.domain.repository.DeliveryRepository;
 import com.co.andes.management.domain.repository.DriverRepository;
 import com.co.andes.management.domain.repository.OrderRepository;
+import com.co.andes.management.domain.repository.StoreRepository;
 import com.co.andes.management.domain.repository.model.database.DeliveryPurchaseEntity;
 import com.co.andes.management.domain.repository.model.database.DriverEntity;
 import com.co.andes.management.domain.repository.model.database.OrderPurchaseEntity;
+import com.co.andes.management.domain.repository.model.database.StoreEntity;
 import com.co.andes.management.domain.repository.model.database.enums.StateEnum;
 import com.co.andes.management.domain.service.model.request.order.OrderRequestDTO;
 import com.co.andes.management.domain.service.model.response.DataResponseDTO;
@@ -29,12 +31,14 @@ public class OrderService {
     private OrderRepository orderRepository;
     private DeliveryRepository deliveryRepository;
     private DriverRepository driverRepository;
+    private StoreRepository store;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, DeliveryRepository deliveryRepository, DriverRepository driverRepository) {
+    public OrderService(OrderRepository orderRepository, DeliveryRepository deliveryRepository, DriverRepository driverRepository, StoreRepository storeRepository) {
         this.orderRepository = orderRepository;
         this.deliveryRepository = deliveryRepository;
         this.driverRepository = driverRepository;
+        this.store = storeRepository;
     }
 
     public DataResponseDTO executeGetOrders(String token) throws AndesException{
@@ -72,9 +76,13 @@ public class OrderService {
             if(it.getState().equals(StateEnum.PROCESSED.getState()) ){
                 OrderPurchaseEntity order = this.orderRepository.getOrderById(it.getIdOrder());
                 DriverEntity driver = this.driverRepository.getDriverById(it.getDriver());
-                this.orderRepository.deleteById(it.getIdOrder());
+                StoreEntity store = this.store.findById(it.getDetail().getIdStore());
+                store.setAmount(store.getAmount() - it.getAmount());
                 DeliveryPurchaseEntity delivery = new DeliveryPurchaseEntity(null, it.getAmount(), StateEnum.PROCESSED, order.getClient(), order.getUserEntity(), order.getStore(), driver);
+
+                this.orderRepository.deleteById(it.getIdOrder());
                 this.deliveryRepository.insertOrder(delivery);
+                this.store.updateStore(store);
             }
         }
         DataResponseDTO dataResponseDTO= new DataResponseDTO();
