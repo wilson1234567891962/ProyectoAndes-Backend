@@ -73,17 +73,18 @@ public class OrderService {
     public DataResponseDTO executeUpdateOrder(String token, List<OrderRequestDTO> orderRequestDTO) throws AndesException{
         Utils.checkToken(token);
         for(OrderRequestDTO it : orderRequestDTO){
-            if(it.getState().equals(StateEnum.PROCESSED.getState()) ){
-                OrderPurchaseEntity order = this.orderRepository.getOrderById(it.getIdOrder());
-                DriverEntity driver = this.driverRepository.getDriverById(it.getDriver());
-                StoreEntity store = this.store.findById(it.getDetail().getIdStore());
-                store.setAmount(store.getAmount() - it.getAmount());
-                DeliveryPurchaseEntity delivery = new DeliveryPurchaseEntity(null, it.getAmount(), StateEnum.PROCESSED, order.getClient(), order.getUserEntity(), order.getStore(), driver);
-
-                this.orderRepository.deleteById(it.getIdOrder());
-                this.deliveryRepository.insertOrder(delivery);
-                this.store.updateStore(store);
-            }
+            OrderPurchaseEntity order = this.orderRepository.getOrderById(it.getIdOrder());
+            DriverEntity driver = this.driverRepository.getDriverById(it.getDriver());
+            StoreEntity store = this.store.findById(it.getDetail().getIdStore());
+            store.setAmount(store.getAmount() - it.getAmount());
+            StateEnum state = it.getState().equals(StateEnum.PROCESSED) ? StateEnum.PROCESSED : it.getState().equals(StateEnum.CANCELED) ? StateEnum.CANCELED : StateEnum.EXECUTING;
+            DeliveryPurchaseEntity delivery = new DeliveryPurchaseEntity(null, it.getAmount(), state, order.getClient(), order.getUserEntity(), order.getStore(), driver);
+            this.orderRepository.deleteById(it.getIdOrder());
+            this.deliveryRepository.insertOrder(delivery);
+            this.store.updateStore(store);
+            this.orderRepository.deleteById(it.getIdOrder());
+            this.deliveryRepository.insertOrder(delivery);
+            this.store.updateStore(store);
         }
         DataResponseDTO dataResponseDTO= new DataResponseDTO();
         dataResponseDTO.setData(ConstantErrors.ERRORS_STATES.get(AndesErrorEnum.SUCCESS_TRANSACTION.getCode()));
