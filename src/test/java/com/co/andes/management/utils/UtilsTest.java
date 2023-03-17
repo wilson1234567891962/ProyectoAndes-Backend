@@ -1,9 +1,8 @@
-package utils;
+package com.co.andes.management.utils;
 
-import com.co.andes.management.utils.Utils;
 import com.co.andes.management.utils.exception.AndesException;
 import org.junit.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 public class UtilsTest {
 
     @Test(expected = AndesException.class)
