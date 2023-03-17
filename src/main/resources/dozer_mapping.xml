@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+    <mapping map-id="issue-mapping" type="one-way">
+        <class-a>com.co.andes.management.domain.service.model.request.issue.IssueRequestDTO</class-a><!-- (1) -->
+        <class-b>com.co.andes.management.domain.service.model.general.issue.IssueDTO</class-b><!-- (2) -->
+        <field>
+            <a>id</a>
+            <b>id</b>
+        </field>
+        <field>
+            <a>nameRuta</a>
+            <b>nameRuta</b>
+        </field>
+        <field>
+            <a>name</a>
+            <b>name</b>
+        </field>
+        <field>
+            <a>image</a>
+            <b>image</b>
+        </field>
+        <field>
+            <a>comment</a>
+            <b>comment</b>
+        </field>
+        <field>
+            <a>fields</a>
+            <b>fields</b>
+        </field>
+    </mapping>
+</mappings>
