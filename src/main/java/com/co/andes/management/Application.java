@@ -25,7 +25,7 @@ public class Application {
 		.run(args);
 		 ConfigurableEnvironment configurableEnvironment = applicationContext.getEnvironment();
          ApiConst.CONFIGURABLE_PROPERTIES = configurableEnvironment;
-		
+		 logger.debug("environment.getProperty(\"spring.datasource.driver-class-name\") " + configurableEnvironment.getProperty("spring.datasource.driver-class-name"));
 		 logger.debug("environment.getProperty(\"spring.datasource.driver-class-name\") " + configurableEnvironment.getProperty("spring.datasource.driver-class-name"));
 		 logger.debug("environment.getProperty(\"spring.jpa.show-sql\") " + configurableEnvironment.getProperty("spring.datasource.url"));
     }
