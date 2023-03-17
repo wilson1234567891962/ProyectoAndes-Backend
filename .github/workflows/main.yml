@@ -5,7 +5,7 @@ on:
     branches:
       - main
 jobs:
-  build:
+  coverage:
     name: Build and analyze
     runs-on: ubuntu-latest
     steps:
@@ -39,13 +39,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=wilson1234567891962_Excel-Java-Read
-      - name: Deploy Heroku
-        runs-on: ubuntu-latest
-      - name: Check branch
-        uses: actions/checkout@v2
-      - name: Deploy Heroku
-        uses: akhileshns/heroku-deploy@v3.12.13 # This is the action
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.13 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "miso-proyecto2-backend"
           heroku_email: "j.chiroque@uniandes.edu.co"
+
