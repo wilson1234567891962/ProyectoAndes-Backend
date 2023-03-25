@@ -46,8 +46,8 @@ public class LoginController {
 			return new ResponseEntity<String>(this.gson.toJson(this.loginFacade.executeLogin(loginRequestDTO)), HttpStatus.OK);
 		}
 		catch (AndesException e) {
-			e.printStackTrace();
 			logger.error("Se presentaron problemas en el controller login ", e);
+			e.printStackTrace();
 			return new ResponseEntity<String>(new Gson().toJson(ConstantErrors.ERRORS_STATES.get(e.getMessage())),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
