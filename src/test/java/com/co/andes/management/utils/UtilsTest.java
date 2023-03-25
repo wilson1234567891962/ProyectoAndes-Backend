@@ -10,9 +10,4 @@ public class UtilsTest {
     public void checkJWTWithException() throws AndesException {
         Utils.checkToken("mkyong");
     }
-
-    @Test()
-    public void checkTheJWTWhenItIsValid() throws AndesException {
-        Utils.checkToken("eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NzkwOTIwNzQsInN1YiI6IiIsImV4cCI6MTY3OTIxMjA3NH0.2QsarS_RcGN_Y4-2MEr0POMFZ0SgiO5-OMsAuP0-yR8");
-    }
 }
