@@ -126,6 +126,15 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${jacoco.version}</version>
+				 <configuration>
+					<excludes>
+						<exclude>**/*com/co/andes/management/adapter/database/model/request/*</exclude>
+						<exclude>**/*com/co/andes/management/domain/repository/model/database/*</exclude>
+						<exclude>**/*com/co/andes/management/domain/service/model/request/**</exclude>
+						<exclude>**/*com/co/andes/management/domain/service/model/response/**</exclude>
+						<exclude>**/*com/co/andes/management/adapter/email/model/**</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
