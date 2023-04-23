@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 
 @RestController
 @RequestMapping(value = ApiConst.LOGIN_PATH)
-@CrossOrigin(origins = "https://wilson1234567891962.github.io")
+@CrossOrigin(origins = "*")
 public class LoginController {
 
     final static Logger logger = Logger.getLogger(LoginController.class);
