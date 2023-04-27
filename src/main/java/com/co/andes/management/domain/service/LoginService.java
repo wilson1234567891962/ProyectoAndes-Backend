@@ -10,7 +10,7 @@ import com.co.andes.management.domain.service.model.request.LoginRequestDTO;
 import com.co.andes.management.domain.service.model.request.PasswordRequestDTO;
 import com.co.andes.management.domain.service.model.request.RegisterRequestDTO;
 import com.co.andes.management.domain.service.model.response.DataResponseDTO;
-import com.co.andes.management.domain.service.model.response.login.LoginResponseDTO;;
+import com.co.andes.management.domain.service.model.response.login.LoginResponseDTO;
 import com.co.andes.management.utils.exception.AndesErrorEnum;
 import com.co.andes.management.utils.exception.AndesException;
 import com.co.andes.management.utils.exception.ConstantErrors;
