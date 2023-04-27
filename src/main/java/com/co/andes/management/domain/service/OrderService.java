@@ -79,7 +79,7 @@ public class OrderService {
             DriverEntity driver = this.driverRepository.getDriverById(it.getDriver());
             StoreEntity store = this.store.findById(it.getDetail().getIdStore());
             store.setAmount(store.getAmount() - it.getAmount());
-            StateEnum state = it.getState().equals(StateEnum.PROCESSED) ? StateEnum.PROCESSED : it.getState().equals(StateEnum.CANCELED) ? StateEnum.CANCELED : StateEnum.EXECUTING;
+            StateEnum state = StateEnum.PROCESSED;
             DeliveryPurchaseEntity delivery = new DeliveryPurchaseEntity(null, it.getAmount(), state, order.getClient(), order.getUserEntity(), order.getStore(), driver);
             this.orderRepository.deleteById(it.getIdOrder());
             this.deliveryRepository.insertOrder(delivery);
