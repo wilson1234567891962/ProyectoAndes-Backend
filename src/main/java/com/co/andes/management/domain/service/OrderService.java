@@ -76,17 +76,20 @@ public class OrderService {
         Utils.checkToken(token);
         for(OrderRequestDTO it : orderRequestDTO){
             OrderPurchaseEntity order = this.orderRepository.getOrderById(it.getIdOrder());
-            DriverEntity driver = this.driverRepository.getDriverById(it.getDriver());
-            StoreEntity store = this.store.findById(it.getDetail().getIdStore());
-            store.setAmount(store.getAmount() - it.getAmount());
-            StateEnum state = StateEnum.PROCESSED;
-            DeliveryPurchaseEntity delivery = new DeliveryPurchaseEntity(null, it.getAmount(), state, order.getClient(), order.getUserEntity(), order.getStore(), driver);
-            this.orderRepository.deleteById(it.getIdOrder());
-            this.deliveryRepository.insertOrder(delivery);
-            this.store.updateStore(store);
-            this.orderRepository.deleteById(it.getIdOrder());
-            this.deliveryRepository.insertOrder(delivery);
-            this.store.updateStore(store);
+            // DriverEntity driver = this.driverRepository.getDriverById(it.getDriver());
+            // StoreEntity store = this.store.findById(it.getDetail().getIdStore());
+            // store.setAmount(store.getAmount() - it.getAmount());
+            // StateEnum state = StateEnum.PROCESSED;
+            // DeliveryPurchaseEntity delivery = new DeliveryPurchaseEntity(null, it.getAmount(), state, order.getClient(), order.getUserEntity(), order.getStore(), driver);
+            // this.orderRepository.deleteById(it.getIdOrder());
+
+            order.setState(StateEnum.PROCESSED);
+            this.orderRepository.updateOrder(order);
+            // this.deliveryRepository.insertOrder(delivery);
+            // this.store.updateStore(store);
+            // this.orderRepository.deleteById(it.getIdOrder());
+            // this.deliveryRepository.insertOrder(delivery);
+            // this.store.updateStore(store);
         }
         DataResponseDTO dataResponseDTO= new DataResponseDTO();
         dataResponseDTO.setData(ConstantErrors.ERRORS_STATES.get(AndesErrorEnum.SUCCESS_TRANSACTION.getCode()));

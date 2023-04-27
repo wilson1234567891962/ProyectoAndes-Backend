@@ -34,4 +34,9 @@ public class OrderDatabaseRepository implements OrderRepository {
 	public void deleteById(int id) {
 		 this.orderRepositoryJPA.deleteById(id);
 	}
+
+	@Override
+	public void updateOrder(OrderPurchaseEntity orderPurchaseEntity) {
+		this.orderRepositoryJPA.save(orderPurchaseEntity);
+	}
 }

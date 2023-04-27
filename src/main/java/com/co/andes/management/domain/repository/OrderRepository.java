@@ -12,4 +12,5 @@ public interface OrderRepository {
 	List<OrderPurchaseEntity> getAllOrders();
 	OrderPurchaseEntity getOrderById(int id);
 	void deleteById(int id);
+	void updateOrder(OrderPurchaseEntity orderPurchaseEntity);
 }
