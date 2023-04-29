@@ -73,6 +73,7 @@ public class OrderController {
 	@RequestMapping(value = "/getClient/", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getClient(@RequestHeader(value="Authorization") String token) {
 		try {
+
 			return new ResponseEntity<String>(this.gson.toJson(this.orderFacade.executeGetClient(token)), HttpStatus.OK);
 		}
 		catch (AndesException e) {
