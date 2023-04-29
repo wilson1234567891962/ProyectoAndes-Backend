@@ -1,17 +1,12 @@
 package com.co.andes.management.domain.service;
 
-import com.co.andes.management.domain.repository.DeliveryRepository;
-import com.co.andes.management.domain.repository.DriverRepository;
-import com.co.andes.management.domain.repository.OrderRepository;
-import com.co.andes.management.domain.repository.StoreRepository;
-import com.co.andes.management.domain.repository.model.database.DeliveryPurchaseEntity;
-import com.co.andes.management.domain.repository.model.database.DriverEntity;
-import com.co.andes.management.domain.repository.model.database.OrderPurchaseEntity;
-import com.co.andes.management.domain.repository.model.database.StoreEntity;
+import com.co.andes.management.domain.repository.*;
+import com.co.andes.management.domain.repository.model.database.*;
 import com.co.andes.management.domain.repository.model.database.enums.FinanceEnum;
 import com.co.andes.management.domain.repository.model.database.enums.StateEnum;
 import com.co.andes.management.domain.service.model.request.order.OrderRequestDTO;
 import com.co.andes.management.domain.service.model.response.DataResponseDTO;
+import com.co.andes.management.domain.service.model.response.client.ClientResponseDTO;
 import com.co.andes.management.domain.service.model.response.driver.DriverResponseDTO;
 import com.co.andes.management.domain.service.model.response.order.DetailOrderResponseDTO;
 import com.co.andes.management.domain.service.model.response.order.OrderResponseDTO;
@@ -30,17 +25,19 @@ import java.util.List;
 public class OrderService {
 
     final static Logger logger = Logger.getLogger(OrderService.class);
+    private ClientRepository clientRepository;
     private OrderRepository orderRepository;
     private DeliveryRepository deliveryRepository;
     private DriverRepository driverRepository;
     private StoreRepository store;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, DeliveryRepository deliveryRepository, DriverRepository driverRepository, StoreRepository storeRepository) {
+    public OrderService(OrderRepository orderRepository, DeliveryRepository deliveryRepository, DriverRepository driverRepository, StoreRepository storeRepository, ClientRepository clientRepository) {
         this.orderRepository = orderRepository;
         this.deliveryRepository = deliveryRepository;
         this.driverRepository = driverRepository;
         this.store = storeRepository;
+        this.clientRepository = clientRepository;
     }
 
     public DataResponseDTO executeGetOrders(String token) throws AndesException{
@@ -71,6 +68,19 @@ public class OrderService {
 
         return new DataResponseDTO(driverResponseDTO);
     }
+
+    public DataResponseDTO executeGetAllClient(String token) throws AndesException{
+        Utils.checkToken(token);
+        List<ClientEntity> client = clientRepository.getAllCLients();
+        List<ClientResponseDTO> clientResponseDTO = new ArrayList<>();
+        for(ClientEntity it : client){
+            ClientResponseDTO det = new ClientResponseDTO(it.getId(), it.getNames());
+            clientResponseDTO.add(det);
+        }
+
+        return new DataResponseDTO(clientResponseDTO);
+    }
+
 
     public DataResponseDTO executeUpdateOrder(String token, List<OrderRequestDTO> orderRequestDTO) throws AndesException{
         Utils.checkToken(token);

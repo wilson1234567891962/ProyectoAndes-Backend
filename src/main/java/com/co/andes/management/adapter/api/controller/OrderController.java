@@ -69,6 +69,24 @@ public class OrderController {
 		}
 	}
 
+	@ApiOperation(value = "getClient")
+	@RequestMapping(value = "/getClient/", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getClient(@RequestHeader(value="Authorization") String token) {
+		try {
+			return new ResponseEntity<String>(this.gson.toJson(this.orderFacade.executeGetClient(token)), HttpStatus.OK);
+		}
+		catch (AndesException e) {
+			e.printStackTrace();
+			logger.error("Se presentaron problemas en el controller login ", e);
+			return new ResponseEntity<String>(new Gson().toJson(ConstantErrors.ERRORS_STATES.get(e.getMessage())),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		catch (Exception e) {
+			logger.error("Se presentaron problemas enviar la checkFields en el controller login",e);
+			return new ResponseEntity<String> (this.gson.toJson(ConstantErrors.ERRORS_STATES.get(AndesErrorEnum.GENERIC_ERROR.getCode())), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	@ApiOperation(value = "updateOrder")
 	@RequestMapping(value = "/updateOrder/", method = RequestMethod.PUT, produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> updateOrder(@RequestHeader(value="Authorization") String token, @RequestBody List<OrderRequestDTO> orderRequestDTO) {

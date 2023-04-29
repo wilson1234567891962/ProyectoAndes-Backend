@@ -31,6 +31,10 @@ public class OrderFacade {
         return  this.orderService.executeGetDrivers(token);
     }
 
+    public Object executeGetClient(String token) throws AndesException {
+        return  this.orderService.executeGetAllClient(token);
+    }
+
     public Object executeUpdateOrder(String token, List<OrderRequestDTO> orderRequestDTO) throws AndesException {
         return  this.orderService.executeUpdateOrder(token,  orderRequestDTO);
     }
