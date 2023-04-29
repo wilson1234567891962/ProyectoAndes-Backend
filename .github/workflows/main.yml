@@ -33,7 +33,7 @@ jobs:
       - name: Generate JaCoCo Badge
         uses: cicirello/jacoco-badge-generator@v2
         with:
-         jacoco-csv-file: target/site/jacoco/index.html
+          jacoco-csv-file: target/site/jacoco/index.html
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
@@ -45,3 +45,5 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "miso-proyecto2-backend"
           heroku_email: "j.chiroque@uniandes.edu.co"
+          dontuseforce: true
+          dontautocreate: true
