@@ -70,6 +70,7 @@ public class OrderService {
     }
 
     public DataResponseDTO executeGetAllClient(String token) throws AndesException{
+
         Utils.checkToken(token);
         List<ClientEntity> client = clientRepository.getAllCLients();
         List<ClientResponseDTO> clientResponseDTO = new ArrayList<>();
