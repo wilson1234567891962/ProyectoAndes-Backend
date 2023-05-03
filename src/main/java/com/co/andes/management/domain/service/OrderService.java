@@ -92,6 +92,8 @@ public class OrderService {
         ClientEntity client= this.clientRepository.findById(deliveryRequestDTO.getClient());
         UserEntity user= this.userRepository.findById(deliveryRequestDTO.getIdUser());
         this.deliveryRepository.insertOrder(new DeliveryPurchaseEntity(null,deliveryRequestDTO.getAmount(), StateEnum.PENDING, client, user,store));
+        store.setAmount(store.getAmount()- deliveryRequestDTO.getAmount());
+        this.storeRepository.updateStore(store);
         DataResponseDTO dataResponseDTO= new DataResponseDTO();
         dataResponseDTO.setData(ConstantErrors.ERRORS_STATES.get(AndesErrorEnum.SUCCESS_TRANSACTION.getCode()));
         return dataResponseDTO;
