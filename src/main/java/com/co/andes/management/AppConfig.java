@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 @Configuration
 public class AppConfig {
 
+	
 	final static Logger logger = Logger.getLogger(AppConfig.class);
 
 	public AppConfig(@Autowired ConfigurableEnvironment env) {
