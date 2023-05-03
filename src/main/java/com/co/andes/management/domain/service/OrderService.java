@@ -8,6 +8,7 @@ import com.co.andes.management.domain.service.model.request.delivery.DeliveryReq
 import com.co.andes.management.domain.service.model.request.order.OrderRequestDTO;
 import com.co.andes.management.domain.service.model.response.DataResponseDTO;
 import com.co.andes.management.domain.service.model.response.client.ClientResponseDTO;
+import com.co.andes.management.domain.service.model.response.delivery.DeliveryResponseDTO;
 import com.co.andes.management.domain.service.model.response.driver.DriverResponseDTO;
 import com.co.andes.management.domain.service.model.response.order.DetailOrderResponseDTO;
 import com.co.andes.management.domain.service.model.response.order.OrderResponseDTO;
@@ -85,6 +86,17 @@ public class OrderService {
         return new DataResponseDTO(clientResponseDTO);
     }
 
+    public DataResponseDTO executeGetAllOrdersDelivery(String token) throws AndesException{
+        Utils.checkToken(token);
+        List<DeliveryPurchaseEntity> ordersDelivery = this.deliveryRepository.getAllOrdersDelivery();
+        List<DeliveryResponseDTO> deliveryResponseDTO = new ArrayList<>();
+        for(DeliveryPurchaseEntity it : ordersDelivery){
+            DeliveryResponseDTO det = new DeliveryResponseDTO(it.getId(), it.getAmount(),  it.getState().getState(), it.getClient().getNames());
+            deliveryResponseDTO.add(det);
+        }
+
+        return new DataResponseDTO(deliveryResponseDTO);
+    }
 
     public DataResponseDTO executeDeliveryOrderPurchase(String token, DeliveryRequestDTO deliveryRequestDTO) throws AndesException{
         Utils.checkToken(token);

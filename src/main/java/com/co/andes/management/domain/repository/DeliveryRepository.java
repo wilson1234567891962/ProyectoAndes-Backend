@@ -11,5 +11,5 @@ public interface DeliveryRepository {
 
 	final static Logger logger = Logger.getLogger(DeliveryRepository.class);
 	DeliveryPurchaseEntity insertOrder(DeliveryPurchaseEntity deliveryPurchaseEntity);
-
+	List<DeliveryPurchaseEntity> getAllOrdersDelivery();
 }

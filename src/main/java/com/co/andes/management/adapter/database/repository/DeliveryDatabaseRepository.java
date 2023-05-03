@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class DeliveryDatabaseRepository implements DeliveryRepository {
 	final static Logger logger = Logger.getLogger(DeliveryDatabaseRepository.class);
@@ -21,5 +23,10 @@ public class DeliveryDatabaseRepository implements DeliveryRepository {
 	@Override
 	public DeliveryPurchaseEntity insertOrder(DeliveryPurchaseEntity deliveryPurchaseEntity) {
 		return this.deliveryPurchase.save(deliveryPurchaseEntity);
+	}
+
+	@Override
+	public List<DeliveryPurchaseEntity> getAllOrdersDelivery() {
+		return this.deliveryPurchase.findAll();
 	}
 }
