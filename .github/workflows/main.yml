@@ -43,7 +43,7 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.12.13 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "miso-proyecto2-backend"
+          heroku_app_name: "miso-proyectofinal2-backend"
           heroku_email: "j.chiroque@uniandes.edu.co"
           dontuseforce: true
           dontautocreate: true
