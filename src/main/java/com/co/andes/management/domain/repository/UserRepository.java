@@ -1,5 +1,6 @@
 package com.co.andes.management.domain.repository;
 import com.co.andes.management.domain.repository.model.database.AuditEntity;
+import com.co.andes.management.domain.repository.model.database.ClientEntity;
 import com.co.andes.management.domain.repository.model.database.UserEntity;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -15,4 +16,5 @@ public interface UserRepository {
 	Optional<UserEntity> getUserByEmail(String email);
 	UserEntity saveUser(String email, String password, int status, List<AuditEntity> audit);
 	UserEntity updateUser(UserEntity userEntity);
+	UserEntity findById(int id);
 }

@@ -25,4 +25,9 @@ public class ClientDatabaseRepository implements ClientRepository {
 	public List<ClientEntity> getAllCLients() {
 		return this.clientRepositoryJPA.findAll();
 	}
+
+	@Override
+	public ClientEntity findById(int id) {
+		return this.clientRepositoryJPA.findById(id).get();
+	}
 }
