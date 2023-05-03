@@ -12,7 +12,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StoreResponseDTO {
-
+    private int id;
     private String product;
     private String imageProduct;
     private String store;
@@ -21,8 +21,8 @@ public class StoreResponseDTO {
     private long amount;
     private DetailResponseDTO detail;
 
-
-    public StoreResponseDTO(String product, String imageProduct, String store, String supplier, String importer, long amount, DetailResponseDTO detail) {
+    public StoreResponseDTO(int id, String product, String imageProduct, String store, String supplier, String importer, long amount, DetailResponseDTO detail) {
+        this.id = id;
         this.product = product;
         this.imageProduct = imageProduct;
         this.store = store;

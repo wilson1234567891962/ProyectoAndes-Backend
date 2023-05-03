@@ -4,6 +4,7 @@ import com.co.andes.management.domain.repository.*;
 import com.co.andes.management.domain.repository.model.database.*;
 import com.co.andes.management.domain.repository.model.database.enums.FinanceEnum;
 import com.co.andes.management.domain.repository.model.database.enums.StateEnum;
+import com.co.andes.management.domain.service.model.request.delivery.DeliveryRequestDTO;
 import com.co.andes.management.domain.service.model.request.order.OrderRequestDTO;
 import com.co.andes.management.domain.service.model.response.DataResponseDTO;
 import com.co.andes.management.domain.service.model.response.client.ClientResponseDTO;
@@ -29,15 +30,17 @@ public class OrderService {
     private OrderRepository orderRepository;
     private DeliveryRepository deliveryRepository;
     private DriverRepository driverRepository;
-    private StoreRepository store;
+    private StoreRepository storeRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, DeliveryRepository deliveryRepository, DriverRepository driverRepository, StoreRepository storeRepository, ClientRepository clientRepository) {
+    public OrderService(ClientRepository clientRepository, OrderRepository orderRepository, DeliveryRepository deliveryRepository, DriverRepository driverRepository, StoreRepository storeRepository, UserRepository userRepository) {
+        this.clientRepository = clientRepository;
         this.orderRepository = orderRepository;
         this.deliveryRepository = deliveryRepository;
         this.driverRepository = driverRepository;
-        this.store = storeRepository;
-        this.clientRepository = clientRepository;
+        this.storeRepository = storeRepository;
+        this.userRepository = userRepository;
     }
 
     public DataResponseDTO executeGetOrders(String token) throws AndesException{
@@ -82,6 +85,17 @@ public class OrderService {
         return new DataResponseDTO(clientResponseDTO);
     }
 
+
+    public DataResponseDTO executeDeliveryOrderPurchase(String token, DeliveryRequestDTO deliveryRequestDTO) throws AndesException{
+        Utils.checkToken(token);
+        StoreEntity store= this.storeRepository.findById(deliveryRequestDTO.getId());
+        ClientEntity client= this.clientRepository.findById(deliveryRequestDTO.getClient());
+        UserEntity user= this.userRepository.findById(deliveryRequestDTO.getIdUser());
+        this.deliveryRepository.insertOrder(new DeliveryPurchaseEntity(null,deliveryRequestDTO.getAmount(), StateEnum.PENDING, client, user,store));
+        DataResponseDTO dataResponseDTO= new DataResponseDTO();
+        dataResponseDTO.setData(ConstantErrors.ERRORS_STATES.get(AndesErrorEnum.SUCCESS_TRANSACTION.getCode()));
+        return dataResponseDTO;
+    }
 
     public DataResponseDTO executeUpdateOrder(String token, List<OrderRequestDTO> orderRequestDTO) throws AndesException{
         Utils.checkToken(token);

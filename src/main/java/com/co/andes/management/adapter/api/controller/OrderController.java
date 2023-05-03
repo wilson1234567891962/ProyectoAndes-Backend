@@ -1,6 +1,7 @@
 package com.co.andes.management.adapter.api.controller;
 import com.co.andes.management.adapter.api.ApiConst;
 import com.co.andes.management.adapter.api.facade.OrderFacade;
+import com.co.andes.management.domain.service.model.request.delivery.DeliveryRequestDTO;
 import com.co.andes.management.domain.service.model.request.order.OrderRequestDTO;
 import com.co.andes.management.utils.exception.AndesErrorEnum;
 import com.co.andes.management.utils.exception.AndesException;
@@ -75,6 +76,25 @@ public class OrderController {
 		try {
 
 			return new ResponseEntity<String>(this.gson.toJson(this.orderFacade.executeGetClient(token)), HttpStatus.OK);
+		}
+		catch (AndesException e) {
+			e.printStackTrace();
+			logger.error("Se presentaron problemas en el controller login ", e);
+			return new ResponseEntity<String>(new Gson().toJson(ConstantErrors.ERRORS_STATES.get(e.getMessage())),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		catch (Exception e) {
+			logger.error("Se presentaron problemas enviar la checkFields en el controller login",e);
+			return new ResponseEntity<String> (this.gson.toJson(ConstantErrors.ERRORS_STATES.get(AndesErrorEnum.GENERIC_ERROR.getCode())), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@ApiOperation(value = "sendDeliveryPurchaseEntity")
+	@RequestMapping(value = "/sendDeliveryPurchaseEntity/", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> sendDeliveryPurchaseEntity(@RequestHeader(value="Authorization") String token, @RequestBody DeliveryRequestDTO deliveryRequestDTO) {
+		try {
+
+			return new ResponseEntity<String>(this.gson.toJson(this.orderFacade.executeUpdateDeliveryPurchase(token, deliveryRequestDTO)), HttpStatus.OK);
 		}
 		catch (AndesException e) {
 			e.printStackTrace();

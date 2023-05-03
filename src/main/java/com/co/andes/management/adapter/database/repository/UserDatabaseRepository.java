@@ -51,4 +51,9 @@ public class UserDatabaseRepository implements UserRepository {
 	public UserEntity updateUser(UserEntity userEntity) {
 		return this.userRepositoryJPA.save(userEntity);
 	}
+
+	@Override
+	public UserEntity findById(int id) {
+		return this.userRepositoryJPA.findById(id).get();
+	}
 }
