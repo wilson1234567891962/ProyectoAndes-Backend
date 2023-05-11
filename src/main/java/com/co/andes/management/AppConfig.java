@@ -16,6 +16,7 @@ public class AppConfig {
 	final static Logger logger = Logger.getLogger(AppConfig.class);
 
 	public AppConfig(@Autowired ConfigurableEnvironment env) {
+		
 		this.initLogger();
 	}
 
