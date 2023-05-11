@@ -44,6 +44,8 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "miso-proyecto2-backend"
-          heroku_email: "j.chiroque@uniandes.edu.co"
-          dontuseforce: true
-          dontautocreate: true
+          heroku_email: "miso-proyecto2-backend"
+      - run: |
+         git config user.name "huong" && git config user.email "miso-proyecto2-backend"
+         git remote add heroku-dev git@heroku.com:dear-genie-dev.git
+         git push heroku-dev HEAD:master
