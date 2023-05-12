@@ -27,6 +27,18 @@ public class OrderRequestDTO {
         this.driver = driver;
     }
 
+    public OrderRequestDTO(int idOrder, String name, String address, String phone, String state, int amount, DetailOrderRRequestDTO detail, int driver, String comment) {
+        this.idOrder = idOrder;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.state = state;
+        this.amount = amount;
+        this.detail = detail;
+        this.driver = driver;
+        this.comment = comment;
+    }
+
     public int getIdOrder() {
         return idOrder;
     }
