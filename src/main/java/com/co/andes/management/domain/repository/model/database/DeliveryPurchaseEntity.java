@@ -47,5 +47,7 @@ public class DeliveryPurchaseEntity implements Serializable {
 	@Nullable
 	private String  comment;
 
+	@OneToOne
+	private DriverEntity driver;
 
 }
