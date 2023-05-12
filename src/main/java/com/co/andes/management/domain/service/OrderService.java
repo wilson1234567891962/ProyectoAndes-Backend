@@ -119,7 +119,6 @@ public class OrderService {
             order.setState(StateEnum.PROCESSED);
             order.setDriver(driver);
             order.setComment(it.getComment());
-            this.deliveryRepository.insertOrder(new DeliveryPurchaseEntity(null,it.getAmount(), StateEnum.PENDING, order.getClient(), order.getUserEntity(),order.getStore()));
             this.orderRepository.updateOrder(order);
         }
         DataResponseDTO dataResponseDTO= new DataResponseDTO();
