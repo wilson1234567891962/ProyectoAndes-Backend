@@ -50,4 +50,9 @@ public class DeliveryPurchaseEntity implements Serializable {
 	@OneToOne
 	private DriverEntity driver;
 
+	@OneToOne
+	@Nullable
+	private OrderPurchaseEntity idOrderPurchase;
+
+
 }
