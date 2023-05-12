@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
+import com.sun.istack.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -41,6 +42,10 @@ public class DeliveryPurchaseEntity implements Serializable {
 
 	@OneToOne
 	private StoreEntity store;
+
+	@Column( name = "comment")
+	@Nullable
+	private String  comment;
 
 
 }

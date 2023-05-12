@@ -103,7 +103,7 @@ public class OrderService {
         StoreEntity store= this.storeRepository.findById(deliveryRequestDTO.getId());
         ClientEntity client= this.clientRepository.findById(deliveryRequestDTO.getClient());
         UserEntity user= this.userRepository.findById(deliveryRequestDTO.getIdUser());
-        this.deliveryRepository.insertOrder(new DeliveryPurchaseEntity(null,deliveryRequestDTO.getAmount(), StateEnum.PENDING, client, user,store));
+        this.deliveryRepository.insertOrder(new DeliveryPurchaseEntity(null,deliveryRequestDTO.getAmount(), StateEnum.PENDING, client, user,store, null));
         store.setAmount(store.getAmount()- deliveryRequestDTO.getAmount());
         this.storeRepository.updateStore(store);
         DataResponseDTO dataResponseDTO= new DataResponseDTO();
@@ -116,6 +116,7 @@ public class OrderService {
         for(OrderRequestDTO it : orderRequestDTO){
             OrderPurchaseEntity order = this.orderRepository.getOrderById(it.getIdOrder());
             order.setState(StateEnum.PROCESSED);
+            this.deliveryRepository.insertOrder(new DeliveryPurchaseEntity(null,it.getAmount(), StateEnum.PENDING, order.getClient(), order.getUserEntity(),order.getStore(), null));
             this.orderRepository.updateOrder(order);
         }
         DataResponseDTO dataResponseDTO= new DataResponseDTO();
