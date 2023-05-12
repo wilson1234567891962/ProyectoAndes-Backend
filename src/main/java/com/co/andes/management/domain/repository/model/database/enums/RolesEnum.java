@@ -2,7 +2,8 @@ package com.co.andes.management.domain.repository.model.database.enums;
 
 public enum RolesEnum {
      OPERATOR("OPERATOR"),
-     ADMINISTRATOR("ADMINISTRATOR");
+     ADMINISTRATOR("ADMINISTRATOR"),
+     DRIVER("DRIVER");
 
     private String rol;
 
