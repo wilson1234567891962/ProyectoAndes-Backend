@@ -1,8 +1,6 @@
 package com.co.andes.management.domain.service.model.request.order;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderRequestDTO {
 
     private int idOrder;
@@ -13,6 +11,7 @@ public class OrderRequestDTO {
     private int amount;
     private DetailOrderRRequestDTO detail;
     private int driver;
+    private String comment;
 
     public OrderRequestDTO() {
     }
@@ -90,5 +89,13 @@ public class OrderRequestDTO {
 
     public void setDriver(int driver) {
         this.driver = driver;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

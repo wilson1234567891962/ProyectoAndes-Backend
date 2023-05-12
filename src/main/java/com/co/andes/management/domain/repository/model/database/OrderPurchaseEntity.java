@@ -2,6 +2,7 @@ package com.co.andes.management.domain.repository.model.database;
 
 import com.co.andes.management.domain.repository.model.database.enums.StateEnum;
 import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,4 +42,10 @@ public class OrderPurchaseEntity implements Serializable {
 	@OneToOne
 	private StoreEntity store;
 
+	@OneToOne
+	private DriverEntity driver;
+
+	@Column( name = "comment")
+	@Nullable
+	private String  comment;
 }

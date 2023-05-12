@@ -43,16 +43,4 @@ public class DeliveryPurchaseEntity implements Serializable {
 	@OneToOne
 	private StoreEntity store;
 
-	@Column( name = "comment")
-	@Nullable
-	private String  comment;
-
-	@OneToOne
-	private DriverEntity driver;
-
-	@OneToOne
-	@Nullable
-	private OrderPurchaseEntity idOrderPurchase;
-
-
 }
