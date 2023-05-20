@@ -52,7 +52,7 @@ public class OrderService {
         for(OrderPurchaseEntity it : stores){
             if(!it.getClient().getFinance().equals(FinanceEnum.BLOCKED.getState())){
                 DetailOrderResponseDTO det = new DetailOrderResponseDTO(it.getStore().getId(), it.getStore().getProduct().getName(), it.getStore().getAmount());
-                OrderResponseDTO or = new OrderResponseDTO(it.getId(), it.getClient().getNames(), it.getClient().getAddress(), it.getClient().getPhone(), it.getState().getState(), it.getAmount(),  det);
+                OrderResponseDTO or = new OrderResponseDTO(it.getId(), it.getClient().getNames(), it.getClient().getAddress(), it.getClient().getPhone(), it.getState().getState(), it.getAmount(),  det, it.getDriver(), it.getComment());
                 orderResponseDTO.add(or);
             }
 

@@ -1,5 +1,6 @@
 package com.co.andes.management.domain.service.model.response.store;
 
+import com.co.andes.management.domain.repository.model.database.DriverEntity;
 import com.co.andes.management.domain.repository.model.database.StoreEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,6 +21,8 @@ public class StoreResponseDTO {
     private String importer;
     private long amount;
     private DetailResponseDTO detail;
+    private DriverEntity driver;
+    private String  comment;
 
     public StoreResponseDTO(int id, String product, String imageProduct, String store, String supplier, String importer, long amount, DetailResponseDTO detail) {
         this.id = id;
