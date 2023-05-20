@@ -115,12 +115,12 @@ public class OrderService {
         Utils.checkToken(token);
         for(OrderRequestDTO it : orderRequestDTO){
             OrderPurchaseEntity order = this.orderRepository.getOrderById(it.getIdOrder());
-            if(order.getDriver() == null ){
+            if(it.getDriver() != 0 ){
                 DriverEntity driver = this.driverRepository.getDriverById(it.getDriver());
                 order.setDriver(driver);
             }
 
-            if(it.getState() != null && it.getState().equals(StateEnum.CANCELED)){
+            if(it.getState() != null && it.getState().equals(StateEnum.CANCELED.getState())){
                 order.setState(StateEnum.CANCELED);
             } else  {
                 order.setState(StateEnum.PROCESSED);
