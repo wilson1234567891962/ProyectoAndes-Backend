@@ -114,10 +114,17 @@ public class OrderService {
     public DataResponseDTO executeUpdateOrder(String token, List<OrderRequestDTO> orderRequestDTO) throws AndesException{
         Utils.checkToken(token);
         for(OrderRequestDTO it : orderRequestDTO){
-            DriverEntity driver = this.driverRepository.getDriverById(it.getDriver());
             OrderPurchaseEntity order = this.orderRepository.getOrderById(it.getIdOrder());
-            order.setState(StateEnum.PROCESSED);
-            order.setDriver(driver);
+            if(order.getDriver() == null ){
+                DriverEntity driver = this.driverRepository.getDriverById(it.getDriver());
+                order.setDriver(driver);
+            }
+
+            if(it.getState() != null && it.getState().equals(StateEnum.CANCELED)){
+                order.setState(StateEnum.CANCELED);
+            } else  {
+                order.setState(StateEnum.PROCESSED);
+            }
             order.setComment(it.getComment());
             this.orderRepository.updateOrder(order);
         }
