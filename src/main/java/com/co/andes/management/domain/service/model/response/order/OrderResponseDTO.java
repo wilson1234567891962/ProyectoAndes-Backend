@@ -19,7 +19,7 @@ public class OrderResponseDTO {
     private DetailOrderResponseDTO detail;
     private DriverEntity driver;
     private String  comment;
-    private ClientEntity client;
+
 
     public OrderResponseDTO(int idOrder, String name, String address, String phone, String state, int amount, DetailOrderResponseDTO detail) {
         this.idOrder = idOrder;
@@ -43,18 +43,6 @@ public class OrderResponseDTO {
         this.comment = comment;
     }
 
-    public OrderResponseDTO(int idOrder, String name, String address, String phone, String state, int amount, DetailOrderResponseDTO detail, DriverEntity driver, String comment, ClientEntity client) {
-        this.idOrder = idOrder;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.state = state;
-        this.amount = amount;
-        this.detail = detail;
-        this.driver = driver;
-        this.comment = comment;
-        this.client = client;
-    }
 
     public int getId() {
         return idOrder;
