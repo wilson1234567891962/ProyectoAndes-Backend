@@ -27,6 +27,7 @@ public class EmailSMTPRepository implements EmailRepository {
 
 	@Override
 	public void sendEmail(EmailEMRequestDTO emailEMRequestDTO) throws MessagingException {
+		
 		javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
 		helper.setSubject(subject);
